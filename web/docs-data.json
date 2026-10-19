@@ -1,0 +1,3002 @@
+{
+  "version": "1.0",
+  "title": "Sardine Documentation",
+  "categories": [
+    {
+      "id": "getting-started",
+      "name": "Getting Started",
+      "icon": "book-open",
+      "description": "Introduction to Sardine, runtime architecture, and environment setup.",
+      "items": [
+        "overview",
+        "quickstart"
+      ]
+    },
+    {
+      "id": "variables-types",
+      "name": "Variables & Types",
+      "icon": "variable",
+      "description": "Dynamic typing, primitive literals, formatted strings, and unpacking.",
+      "items": [
+        "variables",
+        "primitives",
+        "strings",
+        "string-methods",
+        "unpacking"
+      ]
+    },
+    {
+      "id": "operators",
+      "name": "Operators & Expressions",
+      "icon": "calculator",
+      "description": "Arithmetic, bitwise, comparison, logical, and ternary operators.",
+      "items": [
+        "arithmetic-ops",
+        "comparison-logical",
+        "bitwise-ops",
+        "ternary-expr"
+      ]
+    },
+    {
+      "id": "control-flow",
+      "name": "Control Flow",
+      "icon": "git-branch",
+      "description": "Branching conditionals and pattern matching constructs.",
+      "items": [
+        "conditionals",
+        "menu-switch"
+      ]
+    },
+    {
+      "id": "loops",
+      "name": "Loops & Iterations",
+      "icon": "repeat",
+      "description": "Range cycles, while conditions, foreach traversals, and jump keywords.",
+      "items": [
+        "cycle-loop",
+        "during-loop",
+        "trace-loop",
+        "loop-control"
+      ]
+    },
+    {
+      "id": "functions",
+      "name": "Functions & Closures",
+      "icon": "code-2",
+      "description": "Named methods, default arguments, yield returns, and lambdas.",
+      "items": [
+        "functions",
+        "function-args",
+        "yield-return",
+        "lambdas"
+      ]
+    },
+    {
+      "id": "collections",
+      "name": "Lists & Dictionaries",
+      "icon": "layers",
+      "description": "Heterogeneous lists, hash maps, built-in methods, and comprehensions.",
+      "items": [
+        "lists",
+        "list-methods",
+        "list-comprehensions",
+        "dictionaries",
+        "dict-methods",
+        "dict-comprehensions"
+      ]
+    },
+    {
+      "id": "oop",
+      "name": "Object-Oriented Programming",
+      "icon": "box",
+      "description": "Models, visibility specifiers, constructors, inheritance, and dunders.",
+      "items": [
+        "model-definition",
+        "attributes-visibility",
+        "constructors",
+        "inheritance",
+        "dunder-methods",
+        "type-reflection"
+      ]
+    },
+    {
+      "id": "exceptions",
+      "name": "Exception Handling",
+      "icon": "shield-alert",
+      "description": "Robust error catching, built-in error hierarchies, and custom errors.",
+      "items": [
+        "risk-trap",
+        "error-types",
+        "custom-errors"
+      ]
+    },
+    {
+      "id": "modules",
+      "name": "Modules & Imports",
+      "icon": "package",
+      "description": "Module summons, selective imports, renaming, and wildcards.",
+      "items": [
+        "summon"
+      ]
+    },
+    {
+      "id": "stdlib",
+      "name": "Standard Library",
+      "icon": "library",
+      "description": "Extensible self-hosted libraries for math, linalg, statistics, random, and CSV.",
+      "items": [
+        "stdlib-math-core",
+        "stdlib-math-rounding-exp",
+        "stdlib-math-trig",
+        "stdlib-math-theory-geom",
+        "stdlib-linalg-vec",
+        "stdlib-linalg-mat",
+        "stdlib-stat-central",
+        "stdlib-stat-advanced",
+        "stdlib-random-rng",
+        "stdlib-csv"
+      ]
+    },
+    {
+      "id": "builtins",
+      "name": "Built-in Functions",
+      "icon": "terminal",
+      "description": "Global I/O, inspection, range generation, and conversion helpers.",
+      "items": [
+        "builtin-io",
+        "builtin-utilities"
+      ]
+    },
+    {
+      "id": "sandbox",
+      "name": "Runtime & Sandboxing",
+      "icon": "cpu",
+      "description": "Execution safety boundaries, resource quotas, and CLI telemetry.",
+      "items": [
+        "sandboxing"
+      ]
+    }
+  ],
+  "topics": {
+    "overview": {
+      "id": "overview",
+      "title": "Language Overview",
+      "badge": "Core Architecture",
+      "category": "getting-started",
+      "summary": "High-performance object-oriented scripting language fusing Pythonic syntax with native C++23 speed and WebAssembly execution.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "What is Sardine?",
+          "content": "Sardine is a modern, dynamically-typed, object-oriented programming language engineered in C++23. It brings together the syntactic clarity of Python and the deterministic execution speed, memory safety, and thread predictability of native systems code.\n\nThe entire language pipeline compiles cleanly to native binaries and WebAssembly, enabling interactive execution, step-by-step AST inspection, and educational visualization directly inside the browser."
+        },
+        {
+          "tag": "table",
+          "title": "Architecture Pipeline",
+          "headers": [
+            "Stage",
+            "Technology",
+            "Responsibility"
+          ],
+          "rows": [
+            [
+              "Lexical Analyzer",
+              "DFA-based Scanner",
+              "Tokenizes raw character streams and filters whitespace/comments."
+            ],
+            [
+              "Syntax Analyzer",
+              "Pratt Top-Down Parser",
+              "Constructs a typed Abstract Syntax Tree (AST) using operator precedence."
+            ],
+            [
+              "Semantic Evaluator",
+              "Recursive Evaluator",
+              "Executes AST nodes with scoped Context Maps and hierarchical Symbol Tables."
+            ],
+            [
+              "WebAssembly Core",
+              "Emscripten & Web Workers",
+              "Executes compilation and sandboxed interpretation safely in browser threads."
+            ]
+          ]
+        },
+        {
+          "tag": "syntax",
+          "title": "Grammar Structure",
+          "content": "# Sardine source files (.sad) contain statements, classes, expressions, and loops\nmodel Identifier { ... }\nmethod identifier(params) { ... }\nwhen condition { ... }"
+        },
+        {
+          "tag": "example",
+          "title": "Welcome to Sardine",
+          "filename": "hello_sardine.sad",
+          "code": "# Welcome to Sardine!\nshow(\"=== Welcome to Sardine Programming Language ===\")\n\nname = \"Sardine\"\nversion = 0.3\nshow($\"Powered by native C++23 & WebAssembly, running {name} v{version}!\")\n\n# Dynamic iteration with step\ncycle step = 1 : 3 {\n    show(\"  Pipeline check #\", step, \"-> STATUS: OK\")\n}\n\nshow(\"System ready for high-performance scripting!\")"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "=== Welcome to Sardine Programming Language ===\nPowered by native C++23 & WebAssembly, running Sardine v0.3!\n  Pipeline check # 1 -> STATUS: OK\n  Pipeline check # 2 -> STATUS: OK\n  Pipeline check # 3 -> STATUS: OK\nSystem ready for high-performance scripting!"
+        },
+        {
+          "tag": "tip",
+          "title": "Self-Hosted Standard Library",
+          "content": "A significant portion of Sardine's standard library (including math, linear algebra, statistics, and random number generation) is written directly in Sardine itself, demonstrating both the expressive power and performance of the language engine."
+        }
+      ]
+    },
+    "quickstart": {
+      "id": "quickstart",
+      "title": "Quickstart & Tooling",
+      "badge": "Setup & CLI",
+      "category": "getting-started",
+      "summary": "Compile, run scripts from the command line, use the interactive REPL, and leverage telemetry profiling tools.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Execution Modes",
+          "content": "Sardine can be executed in three primary modes:\n1. **CLI Script Runner**: Pass a `.sad` script file directly to the executable.\n2. **Interactive Shell (REPL)**: Launch `./build/sardine` without arguments to enter an interactive session where commands are executed line-by-line.\n3. **Web Playground**: Open the integrated WebAssembly playground to run code, debug step-by-step, and inspect AST hierarchies in real time."
+        },
+        {
+          "tag": "syntax",
+          "title": "CLI Commands",
+          "content": "# Launch interactive REPL\n./build/sardine\n\n# Execute a script file\n./build/sardine samples/main.sad\n\n# Run with unlimited iterations and container sizes\n./build/sardine samples/main.sad --unbounded\n\n# Run with educational AST output\n./build/sardine samples/main.sad --edu"
+        },
+        {
+          "tag": "table",
+          "title": "Command-Line Flags",
+          "headers": [
+            "Flag",
+            "Scope",
+            "Description"
+          ],
+          "rows": [
+            [
+              "--unbounded",
+              "Sandbox",
+              "Deactivates safety limits on loop iterations, call stacks, and container sizes."
+            ],
+            [
+              "--edu",
+              "AST / Lexer",
+              "Prints human-readable token streams and AST hierarchical representations."
+            ],
+            [
+              "--json",
+              "Compiler",
+              "Serializes educational compiler diagnostics and tokens as structured JSON."
+            ],
+            [
+              "--timeprofile",
+              "Performance",
+              "Measures and outputs duration (ms) for Lexer, Parser, and Interpreter."
+            ],
+            [
+              "--memoryprofile",
+              "Performance",
+              "Measures heap memory delta (KB) consumed per compilation phase."
+            ],
+            [
+              "--profile",
+              "Performance",
+              "Combines temporal and spatial diagnostics into a unified telemetry report."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Basic Script Run",
+          "filename": "quickstart_demo.sad",
+          "code": "# A quick diagnostic script\nshow(\"Checking runtime environment...\")\n\nmethod calculate_metrics(count) {\n    squares = [x ** 2 cycle x = 1 : count]\n    yield squares\n}\n\nresults = calculate_metrics(5)\nshow(\"Calculated squares:\", results)\nshow(\"Length of dataset:\", len(results))\nshow(\"Type of result:\", type(results))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Checking runtime environment...\nCalculated squares: [1, 4, 9, 16, 25]\nLength of dataset: 5\nType of result: List"
+        },
+        {
+          "tag": "note",
+          "title": "Web Sandbox Security",
+          "content": "In the WebAssembly environment, code runs inside a dedicated Web Worker thread with SharedArrayBuffer communication. Infinite loops are intercepted by strict iteration caps (100,000 iterations default) to keep your browser responsive."
+        }
+      ]
+    },
+    "variables": {
+      "id": "variables",
+      "title": "Variables & Dynamic Typing",
+      "badge": "Variables",
+      "category": "variables-types",
+      "summary": "Dynamically typed variable declarations, lexical scoping, reassignment, and naming rules.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Dynamic Variable Assignment",
+          "content": "In Sardine, variables are dynamically typed and declared upon their first assignment using the `=` operator. There is no need for explicit type annotations or `let`/`var` keywords.\n\nVariable identifiers can consist of uppercase and lowercase ASCII letters, digits, and underscores, but cannot start with a digit or match a reserved language keyword."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "identifier = expression\nidentifier = new_value  # Can change types dynamically"
+        },
+        {
+          "tag": "example",
+          "title": "Declaring & Reassigning Variables",
+          "filename": "variables_demo.sad",
+          "code": "# Simple assignment\ncount = 10\nratio = 3.14159\nlanguage = \"Sardine\"\nis_ready = True\n\nshow(\"Initial values:\", count, ratio, language, is_ready)\n\n# Dynamic type reassignment\nitem = 42\nshow(\"item as Integer:\", item, \"| type:\", type(item))\n\nitem = \"Now I am a String\"\nshow(\"item as String:\", item, \"| type:\", type(item))\n\nitem = [1, 2, 3]\nshow(\"item as List:\", item, \"| type:\", type(item))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Initial values: 10 3.14159 Sardine 1\nitem as Integer: 42 | type: Integer\nitem as String: Now I am a String | type: String\nitem as List: [1, 2, 3] | type: List"
+        },
+        {
+          "tag": "tip",
+          "title": "Lexical Scope Resolution",
+          "content": "Sardine scopes variables lexically. When accessing a variable, the runtime searches the local Symbol Table first, then parent function closures, and finally the global Symbol Table."
+        }
+      ]
+    },
+    "primitives": {
+      "id": "primitives",
+      "title": "Primitive Types & Null",
+      "badge": "Data Types",
+      "category": "variables-types",
+      "summary": "Core primitive literals including Integers, Floats, Booleans, Null sentinels, and type converter functions.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Primitive Data System",
+          "content": "Sardine features five primary primitive types:\n* **Integer**: 64-bit signed two's-complement integer (`long long`). Supports arbitrary mathematical operations and bit shifts.\n* **Float**: 64-bit IEEE 754 double precision floating-point number.\n* **Boolean**: Logical values represented by `True` and `False` (mapped internally to 1 and 0).\n* **Null**: Sentinel representing the absence of a value. Accessible via any of the aliases `Null`, `None`, or `null`.\n* **Type Inspection**: Use `type(x)` to retrieve the type name string."
+        },
+        {
+          "tag": "syntax",
+          "title": "Type Converters",
+          "content": "Integer(val)   # Casts number or numeric string to 64-bit Integer\nFloat(val)     # Casts number or numeric string to Float\nBoolean(val)   # Evaluates truthiness and returns True or False\nString(val)    # Converts any value to its string representation\ntype(val)      # Returns type string, e.g. \"Integer\", \"Float\", \"Null\""
+        },
+        {
+          "tag": "example",
+          "title": "Working with Primitives & Null",
+          "filename": "primitives_demo.sad",
+          "code": "# Primitive values\ni = 100\nf = 27.85\nb_true = True\nb_false = False\nempty_val = Null\n\nshow(\"Integer:\", i, \"| Type:\", type(i))\nshow(\"Float:\", f, \"| Type:\", type(f))\nshow(\"Boolean:\", b_true, \"| Type:\", type(b_true))\nshow(\"Null:\", empty_val, \"| Type:\", type(empty_val))\n\n# Type Conversions\ns_num = \"456\"\nparsed_int = Integer(s_num)\nshow(\"Parsed Integer + 44 =\", parsed_int + 44)\n\nparsed_float = Float(\"3.14159\")\nshow(\"Parsed Float * 2 =\", parsed_float * 2)\n\nstr_rep = String(999.5)\nshow(\"String conversion:\", str_rep, \"| Type:\", type(str_rep))\n\n# Null equality comparisons\nshow(\"Null == None:\", Null == None)\nshow(\"Null == 0:\", Null == 0)\nshow(\"Null != 5:\", Null != 5)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Integer: 100 | Type: Integer\nFloat: 27.85 | Type: Float\nBoolean: 1 | Type: Boolean\nNull: Null | Type: Null\nParsed Integer + 44 = 500\nParsed Float * 2 = 6.28318\nString conversion: 999.5 | Type: String\nNull == None: 1\nNull == 0: 0\nNull != 5: 1"
+        },
+        {
+          "tag": "note",
+          "title": "Truthiness of Null",
+          "content": "`Null`, `None`, and `null` evaluate to falsy in conditional statements (`when`, `orwhen`). In comparisons, `Null` only equals itself."
+        }
+      ]
+    },
+    "strings": {
+      "id": "strings",
+      "title": "Strings & Formatted F-Strings",
+      "badge": "Text Processing",
+      "category": "variables-types",
+      "summary": "Immutable character sequences, string concatenation, repetition, indexing, and expression interpolation via F-strings.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "String Syntax & Interpolation",
+          "content": "Strings in Sardine are immutable character sequences surrounded by double quotes `\"...\"`. They support standard escape characters (`\\n`, `\\t`, `\\\"`, `\\\\`).\n\n**Formatted Strings (F-strings)** are prefixed with `$`, e.g. `$\"Hello {name}\"`. Any valid Sardine expression can be embedded inside `{}` curly braces and will be evaluated and stringified at runtime."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "str = \"Hello, World!\"\nfstr = $\"Calculated value: {2 * 21}\"\n\n# Operators\nmerged = str1 + str2   # Concatenation\nrepeat = \"Ha\" * 3      # Repetition -> \"HaHaHa\"\nchar = str[0]          # 0-based character indexing"
+        },
+        {
+          "tag": "example",
+          "title": "String Expressions & Interpolation",
+          "filename": "strings_demo.sad",
+          "code": "# Basic strings and operators\ns1 = \"Mission\"\ns2 = \"Sardine\"\nfull = s1 + \" \" + s2\nshow(\"Concatenation:\", full)\n\naccent = \"-\" * 15\nshow(accent)\n\n# Indexing\nword = \"Rocket\"\nshow(\"First char:\", word[0])\nshow(\"Third char:\", word[2])\n\n# F-strings (Expression Interpolation)\nuser = \"Souvik\"\nscore = 98.5\nrank = 1\n\nmessage = $\"Player {user} ranked #{rank} with a score of {score}! High score? {score > 90}\"\nshow(message)\n\n# Expressions inside F-strings\nx = 15\ny = 25\nshow($\"Math in f-string: {x} + {y} = {x + y}, {x} * {y} = {x * y}\")"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Concatenation: Mission Sardine\n---------------\nFirst char: R\nThird char: c\nPlayer Souvik ranked #1 with a score of 98.5! High score? 1\nMath in f-string: 15 + 25 = 40, 15 * 25 = 375"
+        },
+        {
+          "tag": "tip",
+          "title": "String Interning Optimization",
+          "content": "Sardine's C++23 runtime engine employs pointer-keyed string interning for variable identifiers and dictionary keys, allowing symbol table lookups to run in O(1) time without character-by-character comparisons."
+        }
+      ]
+    },
+    "string-methods": {
+      "id": "string-methods",
+      "title": "String Built-in Methods",
+      "badge": "Methods Reference",
+      "category": "variables-types",
+      "summary": "11 built-in instance methods for string manipulation, slicing, case modification, and pattern matching.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "String Method Overview",
+          "content": "Strings in Sardine expose a rich suite of built-in methods called via the dot operator `.` on any string instance or string literal."
+        },
+        {
+          "tag": "table",
+          "title": "Complete String Methods",
+          "headers": [
+            "Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "split",
+              "str.split(delim)",
+              "Splits string by delimiter and returns a List of substrings."
+            ],
+            [
+              "upper",
+              "str.upper()",
+              "Returns a new string with all characters converted to uppercase."
+            ],
+            [
+              "lower",
+              "str.lower()",
+              "Returns a new string with all characters converted to lowercase."
+            ],
+            [
+              "trim",
+              "str.trim()",
+              "Removes leading and trailing whitespace."
+            ],
+            [
+              "starts_with",
+              "str.starts_with(prefix)",
+              "Returns True if string begins with prefix, else False."
+            ],
+            [
+              "ends_with",
+              "str.ends_with(suffix)",
+              "Returns True if string ends with suffix, else False."
+            ],
+            [
+              "replace",
+              "str.replace(old, new)",
+              "Replaces all occurrences of old with new."
+            ],
+            [
+              "find",
+              "str.find(sub)",
+              "Returns 0-based index of first occurrence of sub, or -1 if not found."
+            ],
+            [
+              "contains",
+              "str.contains(sub)",
+              "Returns True if substring exists inside string, else False."
+            ],
+            [
+              "is_digit",
+              "str.is_digit()",
+              "Returns True if string contains only digits (0-9)."
+            ],
+            [
+              "is_alpha",
+              "str.is_alpha()",
+              "Returns True if string contains only alphabetic characters."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "String Methods in Action",
+          "filename": "string_methods_demo.sad",
+          "code": "text = \"   Sardine Dynamic Language   \"\n\n# Trimming and Case Conversion\ncleaned = text.trim()\nshow(\"Trimmed:\", cleaned)\nshow(\"Upper:\", cleaned.upper())\nshow(\"Lower:\", cleaned.lower())\n\n# Splitting into List\nwords = cleaned.split(\" \")\nshow(\"Split by space:\", words)\nshow(\"Word count:\", len(words))\n\n# Prefix / Suffix / Substring checks\nfilename = \"report_data.csv\"\nshow(\"Starts with 'report':\", filename.starts_with(\"report\"))\nshow(\"Ends with '.csv':\", filename.ends_with(\".csv\"))\nshow(\"Contains 'data':\", filename.contains(\"data\"))\nshow(\"Find 'data' index:\", filename.find(\"data\"))\n\n# Replacement\nsentence = \"I like Java and Java\"\nshow(\"Replaced:\", sentence.replace(\"Java\", \"Sardine\"))\n\n# Type checking methods\nshow(\"'12345'.is_digit():\", \"12345\".is_digit())\nshow(\"'Hello'.is_alpha():\", \"Hello\".is_alpha())"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Trimmed: Sardine Dynamic Language\nUpper: SARDINE DYNAMIC LANGUAGE\nLower: sardine dynamic language\nSplit by space: ['Sardine', 'Dynamic', 'Language']\nWord count: 3\nStarts with 'report': 1\nEnds with '.csv': 1\nContains 'data': 1\nFind 'data' index: 7\nReplaced: I like Sardine and Sardine\n'12345'.is_digit(): 1\n'Hello'.is_alpha(): 1"
+        }
+      ]
+    },
+    "unpacking": {
+      "id": "unpacking",
+      "title": "Multiple Assignment & Unpacking",
+      "badge": "Unpacking",
+      "category": "variables-types",
+      "summary": "Destructure lists, strings, and multi-value function yields into distinct variables in a single statement.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Unpacking Mechanics",
+          "content": "Sardine supports multi-target assignment and sequence unpacking. When assigning a list, string, or multiple-yield function to a comma-separated list of identifiers on the left-hand side, Sardine binds each element positionally.\n\nIf the count of LHS variables does not match the size of the RHS iterable, a `RunTimeError` is raised."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "# List unpacking\na, b, c = [1, 2, 3]\n\n# String unpacking\nx, y = \"AB\"\n\n# Multi-value function return unpacking\nfirst, second = get_pair()"
+        },
+        {
+          "tag": "example",
+          "title": "Destructuring Sequences & Returns",
+          "filename": "unpacking_demo.sad",
+          "code": "# 1. List Unpacking\nx, y, z = [10, 20, 30]\nshow(\"x:\", x, \"y:\", y, \"z:\", z)\n\n# 2. String Unpacking\nchar1, char2, char3 = \"SAD\"\nshow(\"Chars:\", char1, char2, char3)\n\n# 3. Function Multi-Yield Unpacking\nmethod get_user_coordinates() {\n    latitude = 40.7128\n    longitude = -74.0060\n    altitude = 10\n    yield latitude, longitude, altitude\n}\n\nlat, lon, alt = get_user_coordinates()\nshow(\"Coordinates:\")\nshow(\"  Latitude:\", lat)\nshow(\"  Longitude:\", lon)\nshow(\"  Altitude:\", alt)\n\n# 4. Swapping Variables\na = 1\nb = 2\na, b = [b, a]\nshow(\"Swapped -> a:\", a, \"b:\", b)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "x: 10 y: 20 z: 30\nChars: S A D\nCoordinates:\n  Latitude: 40.7128\n  Longitude: -74.006\n  Altitude: 10\nSwapped -> a: 2 b: 1"
+        },
+        {
+          "tag": "warning",
+          "title": "Cardinality Mismatch",
+          "content": "Attempting to unpack into fewer or more variables than elements in the sequence will trigger a `RunTimeError: Expected N values to unpack, got M`."
+        }
+      ]
+    },
+    "arithmetic-ops": {
+      "id": "arithmetic-ops",
+      "title": "Arithmetic & Assignment Operators",
+      "badge": "Operators",
+      "category": "operators",
+      "summary": "Full suite of arithmetic calculations, exponentiation, floor division, and augmented assignment operators.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Mathematical Operators",
+          "content": "Sardine implements standard mathematical operations following algebraic operator precedence rules: parentheses, exponentiation, unary signs, multiplicative operations, and additive operations.\n\nAll arithmetic operators support compound/augmented assignment (e.g. `+=`, `**=`)."
+        },
+        {
+          "tag": "table",
+          "title": "Arithmetic Operators Reference",
+          "headers": [
+            "Operator",
+            "Description",
+            "Example",
+            "Result"
+          ],
+          "rows": [
+            [
+              "+",
+              "Addition / String Concatenation",
+              "15 + 10",
+              "25"
+            ],
+            [
+              "-",
+              "Subtraction / Negation",
+              "20 - 7",
+              "13"
+            ],
+            [
+              "*",
+              "Multiplication / Sequence Repeat",
+              "6 * 7",
+              "42"
+            ],
+            [
+              "/",
+              "True Division (always Float)",
+              "7 / 2",
+              "3.5"
+            ],
+            [
+              "//",
+              "Floor Division (integer quotient)",
+              "7 // 2",
+              "3"
+            ],
+            [
+              "%",
+              "Modulus (remainder)",
+              "17 % 5",
+              "2"
+            ],
+            [
+              "**",
+              "Exponentiation (power)",
+              "2 ** 8",
+              "256"
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Arithmetic & In-Place Modification",
+          "filename": "arithmetic_demo.sad",
+          "code": "a = 20\nb = 6\n\nshow(\"Addition:\", a + b)\nshow(\"Subtraction:\", a - b)\nshow(\"Multiplication:\", a * b)\nshow(\"True Division:\", a / b)\nshow(\"Floor Division:\", a // b)\nshow(\"Modulus:\", a % b)\nshow(\"Exponentiation (2 ** 5):\", 2 ** 5)\n\n# Compound Augmented Assignments\nval = 100\nval += 25\nshow(\"val += 25:\", val)\nval /= 5\nshow(\"val /= 5:\", val)\nval **= 2\nshow(\"val **= 2:\", val)\nval //= 10\nshow(\"val //= 10:\", val)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Addition: 26\nSubtraction: 14\nMultiplication: 120\nTrue Division: 3.33333\nFloor Division: 3\nModulus: 2\nExponentiation (2 ** 5): 32\nval += 25: 125\nval /= 5: 25\nval **= 2: 625\nval //= 10: 62"
+        }
+      ]
+    },
+    "comparison-logical": {
+      "id": "comparison-logical",
+      "title": "Comparison & Logical Operators",
+      "badge": "Operators",
+      "category": "operators",
+      "summary": "Relational comparisons, equality tests, short-circuit logical boolean operators, and precedence rules.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Comparison & Logical Precedence",
+          "content": "Sardine provides relational operators that return boolean values `True` (1) or `False` (0).\n\nLogical operators use the keywords `not`, `and`, and `or` with strict precedence:\n1. `not` (highest)\n2. `and`\n3. `or` (lowest)\n\nLogical evaluation uses short-circuit semantics: in `A and B`, `B` is not evaluated if `A` is falsy. In `A or B`, `B` is not evaluated if `A` is truthy."
+        },
+        {
+          "tag": "syntax",
+          "title": "Operators Overview",
+          "content": "# Relational\n==  !=  <  >  <=  >=\n\n# Logical\nnot expr\nexpr1 and expr2\nexpr1 or expr2"
+        },
+        {
+          "tag": "example",
+          "title": "Evaluations & Precedence",
+          "filename": "comparison_demo.sad",
+          "code": "x = 10\ny = 20\nz = 30\n\nshow(\"x < y:\", x < y)\nshow(\"x == y:\", x == y)\nshow(\"x != y:\", x != y)\nshow(\"y <= 20:\", y <= 20)\n\n# Logical Combinations\nshow(\"(x < y) and (y < z):\", (x < y) and (y < z))\nshow(\"(x > y) or (y < z):\", (x > y) or (y < z))\nshow(\"not (x == 10):\", not (x == 10))\n\n# Precedence: not > and > or\n# (1 and 0) or (not 0) -> 0 or 1 -> 1 (True)\nresult = (1 and 0) or not 0\nshow(\"Precedence check (1 and 0) or not 0:\", result)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "x < y: 1\nx == y: 0\nx != y: 1\ny <= 20: 1\n(x < y) and (y < z): 1\n(x > y) or (y < z): 1\nnot (x == 10): 0\nPrecedence check (1 and 0) or not 0: 1"
+        }
+      ]
+    },
+    "bitwise-ops": {
+      "id": "bitwise-ops",
+      "title": "Bitwise Operations",
+      "badge": "Low-Level Math",
+      "category": "operators",
+      "summary": "Direct bit-manipulation operators: AND, OR, XOR, NOT, left-shift, and right-shift.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Bitwise Manipulation",
+          "content": "Sardine executes bitwise operations natively on 64-bit integer values using native C++ bitwise semantics. Bitwise operators include bitwise AND (`&`), bitwise OR (`|`), bitwise XOR (`^`), bitwise invert (`~`), left-shift (`<<`), and right-shift (`>>`).\n\nEach operator also has a compound assignment variant: `&=`, `|=`, `^=`, `<<=`, `>>=`."
+        },
+        {
+          "tag": "example",
+          "title": "Bitwise Gates & Masks",
+          "filename": "bitwise_demo.sad",
+          "code": "a = 12   # Binary: 1100\nb = 10   # Binary: 1010\n\nshow(\"a & b (AND):\", a & b)      # 1000 = 8\nshow(\"a | b (OR):\", a | b)       # 1110 = 14\nshow(\"a ^ b (XOR):\", a ^ b)      # 0110 = 6\nshow(\"~a (Bitwise NOT):\", ~a)    # -13\n\n# Shifts\nx = 1\nshow(\"1 << 4 (Left Shift):\", x << 4)    # 16\nshow(\"16 >> 2 (Right Shift):\", 16 >> 2) # 4\n\n# Compound Bitwise Assignment\nmask = 1\nmask <<= 3\nshow(\"mask <<= 3:\", mask)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "a & b (AND): 8\na | b (OR): 14\na ^ b (XOR): 6\n~a (Bitwise NOT): -13\n1 << 4 (Left Shift): 16\n16 >> 2 (Right Shift): 4\nmask <<= 3: 8"
+        }
+      ]
+    },
+    "ternary-expr": {
+      "id": "ternary-expr",
+      "title": "Ternary Conditional Expression",
+      "badge": "Expressions",
+      "category": "operators",
+      "summary": "Compact inline conditional expressions using the `? :` operator.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Inline Decision Making",
+          "content": "The ternary operator `condition ? true_val : false_val` allows conditional logic to be written inline within an expression. It evaluates the condition first; if truthy, it returns the true branch value, otherwise the false branch value."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "result = condition ? value_if_true : value_if_false"
+        },
+        {
+          "tag": "example",
+          "title": "Ternary Assignments & Nesting",
+          "filename": "ternary_demo.sad",
+          "code": "score = 85\nstatus = score >= 50 ? \"PASSED\" : \"FAILED\"\nshow(\"Exam status:\", status)\n\n# Inline string construction\nage = 17\naccess = $\"User is {age >= 18 ? 'an Adult' : 'a Minor'}\"\nshow(access)\n\n# Chained / Nested Ternary\nval = 0\nsign = val > 0 ? \"Positive\" : (val < 0 ? \"Negative\" : \"Zero\")\nshow(\"Sign of\", val, \"is\", sign)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Exam status: PASSED\nUser is a Minor\nSign of 0 is Zero"
+        }
+      ]
+    },
+    "conditionals": {
+      "id": "conditionals",
+      "title": "When / Orwhen / Otherwise",
+      "badge": "Control Flow",
+      "category": "control-flow",
+      "summary": "Branching execution via `when` (if), `orwhen` (else-if), and `otherwise` (else) blocks.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Conditionals in Sardine",
+          "content": "Instead of traditional keywords, Sardine uses natural, declarative keywords for branching:\n* `when <condition> { ... }`: Evaluates condition; if truthy, executes the block.\n* `orwhen <condition> { ... }`: Optional subsequent condition if preceding checks were falsy.\n* `otherwise { ... }`: Default fallback block executed if no prior branch was taken.\n\n**Truthiness Rules**:\n* Falsy values: `0`, `0.0`, `\"\"`, `[]`, `{}`, `Null`, `None`, `null`, `False`.\n* Truthy values: All non-zero numbers, non-empty strings, populated lists/dictionaries, and `True`."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "when condition1 {\n    # statements\n} orwhen condition2 {\n    # statements\n} otherwise {\n    # fallback statements\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Conditional Grading Program",
+          "filename": "conditionals_demo.sad",
+          "code": "grade = 88\n\nwhen grade >= 90 {\n    show(\"Grade: A (Distinction)\")\n} orwhen grade >= 80 {\n    show(\"Grade: B (Merit)\")\n} orwhen grade >= 70 {\n    show(\"Grade: C (Pass)\")\n} otherwise {\n    show(\"Grade: Needs Improvement\")\n}\n\n# Truthiness test\nitems = []\nwhen items {\n    show(\"Cart has items\")\n} otherwise {\n    show(\"Cart is currently empty!\")\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Grade: B (Merit)\nCart is currently empty!"
+        }
+      ]
+    },
+    "menu-switch": {
+      "id": "menu-switch",
+      "title": "Menu / Choice / Fallback (Switch-Case)",
+      "badge": "Pattern Matching",
+      "category": "control-flow",
+      "summary": "Multi-way branch matching with expression evaluation, fall-through execution, and escape break.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Menu Switch Constructs",
+          "content": "The `menu` construct in Sardine matches an expression against several `choice` branches with a default `fallback` path.\n\n**Fall-Through Execution**: Like C/C++ switch statements, Sardine's `choice` blocks execute subsequent branches upon matching *unless* an explicit `escape` keyword is invoked to break out of the menu."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "menu expression {\n    choice value1 {\n        # statements\n        escape  # Prevents fall-through\n    }\n    choice value2 {\n        # statements\n        escape\n    }\n    fallback {\n        # default statements\n    }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Command Parser with Menu",
+          "filename": "menu_demo.sad",
+          "code": "command = \"start\"\n\nmenu command {\n    choice \"start\" {\n        show(\"Initiating service...\")\n        escape\n    }\n    choice \"stop\" {\n        show(\"Halting service...\")\n        escape\n    }\n    choice \"status\" {\n        show(\"Service is operational.\")\n        escape\n    }\n    fallback {\n        show(\"Unrecognized command:\", command)\n    }\n}\n\n# Demonstrating intentional fall-through\nnumber = 2\nshow(\"--- Fall-through demo for 2 ---\")\nmenu number {\n    choice 1 {\n        show(\"One\")\n    }\n    choice 2 {\n        show(\"Two\")\n        # No escape here, falls through!\n    }\n    choice 3 {\n        show(\"Three\")\n        escape\n    }\n    fallback {\n        show(\"Default\")\n    }\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Initiating service...\n--- Fall-through demo for 2 ---\nTwo\nThree"
+        },
+        {
+          "tag": "warning",
+          "title": "Remember `escape`",
+          "content": "If you do not want subsequent `choice` blocks to run after a match, always include an `escape` statement at the end of the choice body."
+        }
+      ]
+    },
+    "cycle-loop": {
+      "id": "cycle-loop",
+      "title": "Cycle Loop (For Loop)",
+      "badge": "Loops",
+      "category": "loops",
+      "summary": "Range-based step iteration with start, stop, and step increments, featuring zero-allocation in-place scoping.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Numeric Range Iteration",
+          "content": "The `cycle` loop provides high-performance numeric range iteration equivalent to a traditional C/Python `for` loop. It supports start, stop (inclusive), and step values.\n\nUnder the hood, Sardine reuses frame environments and bypasses dynamic result accumulation during cycle loops, keeping memory consumption completely flat even over millions of iterations."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "cycle <variable> = <start> : <end> [: <step>] {\n    # Loop body\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Cycle Loops in Action",
+          "filename": "cycle_demo.sad",
+          "code": "# 1. Standard ascending cycle (0 to 4 inclusive)\nshow(\"--- Ascending Loop ---\")\ncycle i = 0 : 4 {\n    show(\"Step:\", i)\n}\n\n# 2. Cycle with step stride (increments by 3)\nshow(\"--- Stride Loop (Step 3) ---\")\ncycle n = 0 : 12 : 3 {\n    show(\"Value:\", n)\n}\n\n# 3. Descending countdown (negative step)\nshow(\"--- Countdown (Step -1) ---\")\ncycle count = 5 : 1 : -1 {\n    show(\"T-minus:\", count)\n}\nshow(\"Liftoff!\")"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Ascending Loop ---\nStep: 0\nStep: 1\nStep: 2\nStep: 3\nStep: 4\n--- Stride Loop (Step 3) ---\nValue: 0\nValue: 3\nValue: 6\nValue: 9\nValue: 12\n--- Countdown (Step -1) ---\nT-minus: 5\nT-minus: 4\nT-minus: 3\nT-minus: 2\nT-minus: 1\nLiftoff!"
+        },
+        {
+          "tag": "tip",
+          "title": "Inclusive End Boundary",
+          "content": "Unlike Python's `range(start, stop)` which is half-open, Sardine's `cycle i = 0 : 5` is inclusive of the end boundary (runs for 0, 1, 2, 3, 4, 5)."
+        }
+      ]
+    },
+    "during-loop": {
+      "id": "during-loop",
+      "title": "During Loop (While Loop)",
+      "badge": "Loops",
+      "category": "loops",
+      "summary": "Condition-driven while loop construct evaluated before every iteration cycle.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Condition-Driven Loops",
+          "content": "The `during` construct executes its block repeatedly as long as its conditional expression resolves to truthy. The condition is re-evaluated before each iteration cycle."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "during condition {\n    # Statements that alter condition\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Dynamic State Evaluation with During",
+          "filename": "during_demo.sad",
+          "code": "# Accumulating values until threshold\ntotal = 0\ncounter = 1\n\nduring counter <= 5 {\n    total += counter\n    show($\"Added {counter}, Running total = {total}\")\n    counter += 1\n}\n\nshow(\"Final Sum:\", total)\n\n# Binary Halving\nval = 64\nsteps = 0\nduring val > 1 {\n    val //= 2\n    steps += 1\n}\nshow(\"Halved 64 to 1 in\", steps, \"steps\")"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Added 1, Running total = 1\nAdded 2, Running total = 3\nAdded 3, Running total = 6\nAdded 4, Running total = 10\nAdded 5, Running total = 15\nFinal Sum: 15\nHalved 64 to 1 in 6 steps"
+        },
+        {
+          "tag": "warning",
+          "title": "Sandbox Limit",
+          "content": "By default, the execution sandbox intercepts loops exceeding 100,000 iterations to protect against accidental infinite loops. Pass `--unbounded` if you require longer iterations."
+        }
+      ]
+    },
+    "trace-loop": {
+      "id": "trace-loop",
+      "title": "Trace Loop (Foreach Loop)",
+      "badge": "Loops",
+      "category": "loops",
+      "summary": "Collection-driven foreach iteration over lists, strings, and multi-variable pair unpacking.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Collection Traversal with Trace",
+          "content": "The `trace` loop is Sardine's foreach construct. It iterates over any sequence using the `<-` assignment arrow.\n\n`trace` can iterate directly over lists, characters of a string, or unroll nested pairs/tuples into multiple variables (e.g. `trace k, v <- pairs`)."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "# Single item iteration\ntrace item <- sequence {\n    # ...\n}\n\n# Multi-variable pair unrolling\ntrace key, value <- pair_list {\n    # ...\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Traversing Collections",
+          "filename": "trace_demo.sad",
+          "code": "# 1. Trace over a list\nfruits = [\"Apple\", \"Banana\", \"Cherry\"]\nshow(\"--- Fruits List ---\")\ntrace fruit <- fruits {\n    show(\"Fruit:\", fruit)\n}\n\n# 2. Trace over characters of a string\nword = \"SARDINE\"\nshow(\"--- String Characters ---\")\ntrace char <- word {\n    show(\"Char:\", char)\n}\n\n# 3. Trace over list of pairs (Unpacking in Loop)\nuser_roles = [[\"Alice\", \"Admin\"], [\"Bob\", \"Developer\"], [\"Charlie\", \"Designer\"]]\nshow(\"--- Unrolling User Roles ---\")\ntrace user, role <- user_roles {\n    show($\"User: {user} | Role: {role}\")\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Fruits List ---\nFruit: Apple\nFruit: Banana\nFruit: Cherry\n--- String Characters ---\nChar: S\nChar: A\nChar: R\nChar: D\nChar: I\nChar: N\nChar: E\n--- Unrolling User Roles ---\nUser: Alice | Role: Admin\nUser: Bob | Role: Developer\nUser: Charlie | Role: Designer"
+        }
+      ]
+    },
+    "loop-control": {
+      "id": "loop-control",
+      "title": "Loop Jump Controls (Proceed & Escape)",
+      "badge": "Control Flow",
+      "category": "loops",
+      "summary": "Interrupt loop execution using `proceed` (continue to next cycle) and `escape` (break out of loop).",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Proceed and Escape",
+          "content": "Sardine provides two explicit jump keywords for loop flow:\n* `proceed`: Skips the remainder of the current iteration and jumps directly to the next iteration (equivalent to `continue` in C/Python).\n* `escape`: Terminates the innermost loop immediately and transfers control to the statement after the loop (equivalent to `break` in C/Python)."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "cycle i = 1 : 10 {\n    when i == 3 {\n        proceed  # Skip 3\n    }\n    when i == 7 {\n        escape   # Stop loop at 7\n    }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Filtering & Early Breaking",
+          "filename": "jump_controls_demo.sad",
+          "code": "# Skip odd numbers using proceed\nshow(\"--- Even numbers from 1 to 10 ---\")\ncycle n = 1 : 10 {\n    when n % 2 != 0 {\n        proceed\n    }\n    show(\"Even:\", n)\n}\n\n# Early search breakout using escape\nshow(\"--- Search for target in list ---\")\nnumbers = [10, 25, 42, 88, 99]\ntarget = 42\nfound = False\n\ntrace num <- numbers {\n    show(\"Inspecting:\", num)\n    when num == target {\n        found = True\n        show(\"Found target\", target, \"! Escaping loop.\")\n        escape\n    }\n}\nshow(\"Search finished. Target found?\", found)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Even numbers from 1 to 10 ---\nEven: 2\nEven: 4\nEven: 6\nEven: 8\nEven: 10\n--- Search for target in list ---\nInspecting: 10\nInspecting: 25\nInspecting: 42\nFound target 42 ! Escaping loop.\nSearch finished. Target found? 1"
+        }
+      ]
+    },
+    "functions": {
+      "id": "functions",
+      "title": "Method Declarations (Functions)",
+      "badge": "Functions",
+      "category": "functions",
+      "summary": "Declaring named functions using the `method` keyword, parameter passing, and invocation.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "First-Class Functions",
+          "content": "Functions in Sardine are first-class citizens declared with the `method` keyword. Functions can be assigned to variables, passed as arguments to other functions, and returned from functions.\n\nFunction parameters are bound into a newly allocated execution scope with access to parent scopes."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "method function_name(param1, param2) {\n    # statements\n    yield return_value\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Defining & Invoking Functions",
+          "filename": "functions_demo.sad",
+          "code": "# Basic method definition\nmethod greet(name) {\n    yield $\"Hello, {name}! Welcome to Sardine.\"\n}\n\nshow(greet(\"World\"))\nshow(greet(\"Developer\"))\n\n# Mathematical function\nmethod hypotenuse(a, b) {\n    yield ((a ** 2) + (b ** 2)) ** 0.5\n}\n\nshow(\"Hypotenuse of 3 and 4:\", hypotenuse(3, 4))\nshow(\"Hypotenuse of 5 and 12:\", hypotenuse(5, 12))\n\n# First-class function assignment\nfunc_ref = greet\nshow(\"Invoked via reference:\", func_ref(\"Arkopravo\"))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Hello, World! Welcome to Sardine.\nHello, Developer! Welcome to Sardine.\nHypotenuse of 3 and 4: 5\nHypotenuse of 5 and 12: 13\nInvoked via reference: Hello, Arkopravo! Welcome to Sardine."
+        }
+      ]
+    },
+    "function-args": {
+      "id": "function-args",
+      "title": "Default & Keyword Arguments",
+      "badge": "Functions",
+      "category": "functions",
+      "summary": "Flexible parameter lists with default values and keyword-based invocation.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Default Parameter Values",
+          "content": "Methods can define default parameter values using `=` in the parameter list. If a caller omits an argument that has a default value, the default expression is evaluated."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "method configure(host = \"localhost\", port = 8080, debug = False) {\n    # ...\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Default Arguments Demo",
+          "filename": "default_args_demo.sad",
+          "code": "method create_server(host = \"127.0.0.1\", port = 3000, secure = False) {\n    protocol = secure ? \"https\" : \"http\"\n    yield $\"{protocol}://{host}:{port}\"\n}\n\n# Using all defaults\nshow(\"Default server:\", create_server())\n\n# Overriding host positionally\nshow(\"Custom host:\", create_server(\"0.0.0.0\"))\n\n# Overriding host and port\nshow(\"Custom host & port:\", create_server(\"api.example.com\", 443, True))\n\n# Default multiplier method\nmethod power(base, exp = 2) {\n    yield base ** exp\n}\nshow(\"Square of 9:\", power(9))\nshow(\"Cube of 9:\", power(9, 3))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Default server: http://127.0.0.1:3000\nCustom host: http://0.0.0.0:3000\nCustom host & port: https://api.example.com:443\nSquare of 9: 81\nCube of 9: 729"
+        }
+      ]
+    },
+    "yield-return": {
+      "id": "yield-return",
+      "title": "Yield & Return Values",
+      "badge": "Functions",
+      "category": "functions",
+      "summary": "Returning values using `yield`, implicit Null returns, and multi-value returns.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Yield Semantics",
+          "content": "In Sardine, `yield` acts as the return statement of a function, immediately passing control and a result value back to the caller.\n\n* **Implicit Null**: If a function terminates without an explicit `yield` or calls a bare `yield`, it returns `Null`.\n* **Multiple Returns**: `yield val1, val2, val3` returns multiple values packaged as a list, which can be destructured on the caller side."
+        },
+        {
+          "tag": "example",
+          "title": "Yielding Values & Early Returns",
+          "filename": "yield_demo.sad",
+          "code": "# Early exit using yield\nmethod check_even(n) {\n    when n % 2 == 0 {\n        yield True\n    }\n    yield False\n}\n\nshow(\"Is 4 even?\", check_even(4))\nshow(\"Is 7 even?\", check_even(7))\n\n# Returning multiple values\nmethod min_and_max(nums) {\n    min_val = nums[0]\n    max_val = nums[0]\n    trace n <- nums {\n        when n < min_val { min_val = n }\n        when n > max_val { max_val = n }\n    }\n    yield min_val, max_val\n}\n\nlow, high = min_and_max([45, 12, 89, 3, 67])\nshow(\"Lowest:\", low, \"| Highest:\", high)\n\n# Implicit Null return\nmethod do_work() {\n    show(\"Performing side effect...\")\n}\nres = do_work()\nshow(\"Return of do_work:\", res)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Is 4 even? 1\nIs 7 even? 0\nLowest: 3 | Highest: 89\nPerforming side effect...\nReturn of do_work: Null"
+        }
+      ]
+    },
+    "lambdas": {
+      "id": "lambdas",
+      "title": "Anonymous Functions & Closures",
+      "badge": "Functional Programming",
+      "category": "functions",
+      "summary": "Lambda expressions, callback passing, higher-order functions, and lexical scope closures.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Anonymous Methods & Closures",
+          "content": "Anonymous functions (lambdas) are declared using the `method` keyword without a name identifier: `method(params) { ... }`.\n\nBecause functions retain a reference to the environment where they were created, nested functions act as **lexical closures**, preserving state across calls."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "# Anonymous function assigned to a variable\nadd = method(a, b) { yield a + b }\n\n# Higher order function returning a closure\nmethod make_adder(n) {\n    yield method(x) { yield x + n }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Callbacks & Higher-Order Functions",
+          "filename": "closures_demo.sad",
+          "code": "# 1. Passing anonymous function as callback\nmethod apply_operation(func, a, b) {\n    yield func(a, b)\n}\n\n# Pass inline anonymous functions\nsum = apply_operation(method(x, y) { yield x + y }, 20, 10)\nproduct = apply_operation(method(x, y) { yield x * y }, 20, 10)\nshow(\"Sum via callback:\", sum)\nshow(\"Product via callback:\", product)\n\n# 2. Lexical Closures (Function Factory)\nmethod create_multiplier(factor) {\n    yield method(n) {\n        yield n * factor\n    }\n}\n\ndouble = create_multiplier(2)\ntriple = create_multiplier(3)\n\nshow(\"double(15):\", double(15))\nshow(\"triple(15):\", triple(15))\nshow(\"double(50):\", double(50))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Sum via callback: 30\nProduct via callback: 200\ndouble(15): 30\ntriple(15): 45\ndouble(50): 100"
+        }
+      ]
+    },
+    "lists": {
+      "id": "lists",
+      "title": "Lists & Operations",
+      "badge": "Collections",
+      "category": "collections",
+      "summary": "Heterogeneous dynamic arrays, 0-based indexing, list merging, repetition, and removal operators.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "List Data Structure",
+          "content": "Lists in Sardine are dynamic, heterogeneous ordered sequences declared with square brackets `[...]`. Elements can be accessed and modified by 0-based index.\n\n**Copy-on-Write (COW)**: Sardine uses Copy-on-Write semantics for lists. Passing or returning a list shares internal memory until a mutating method modifies the contents."
+        },
+        {
+          "tag": "table",
+          "title": "List Operators",
+          "headers": [
+            "Operator",
+            "Operation",
+            "Example",
+            "Result"
+          ],
+          "rows": [
+            [
+              "+",
+              "Concatenation / Merge",
+              "[1, 2] + [3, 4]",
+              "[1, 2, 3, 4]"
+            ],
+            [
+              "*",
+              "Repetition",
+              "[0] * 3",
+              "[0, 0, 0]"
+            ],
+            [
+              "-",
+              "Drop item by value",
+              "[1, 2, 3, 2] - 2",
+              "[1, 3] (removes occurrences)"
+            ],
+            [
+              "list[i]",
+              "Index access / assignment",
+              "nums[0] = 99",
+              "Updates element at index 0"
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Working with Lists",
+          "filename": "lists_demo.sad",
+          "code": "# Heterogeneous list\nmixed = [10, \"Sardine\", 3.14, True]\nshow(\"Initial list:\", mixed)\nshow(\"First item:\", mixed[0])\nshow(\"Second item:\", mixed[1])\n\n# Modifying by index\nmixed[2] = \"Updated\"\nshow(\"After modification:\", mixed)\n\n# List Operators\nl1 = [1, 2, 3]\nl2 = [4, 5]\nshow(\"l1 + l2 (Merge):\", l1 + l2)\nshow(\"l2 * 3 (Repeat):\", l2 * 3)\n\n# Removal using - operator\nitems = [\"a\", \"b\", \"c\", \"b\"]\nshow(\"items - 'b':\", items - \"b\")\n\n# Length\nshow(\"len(l1):\", len(l1))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Initial list: [10, 'Sardine', 3.14, 1]\nFirst item: 10\nSecond item: Sardine\nAfter modification: [10, 'Sardine', 'Updated', 1]\nl1 + l2 (Merge): [1, 2, 3, 4, 5]\nl2 * 3 (Repeat): [4, 5, 4, 5, 4, 5]\nitems - 'b': ['a', 'c']\nlen(l1): 3"
+        }
+      ]
+    },
+    "list-methods": {
+      "id": "list-methods",
+      "title": "List Built-in Methods",
+      "badge": "Methods Reference",
+      "category": "collections",
+      "summary": "14 built-in instance methods for searching, mutating, sorting, slicing, and transforming lists.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Comprehensive List API",
+          "content": "Lists provide 14 dedicated methods supporting in-place mutations as well as functional copies."
+        },
+        {
+          "tag": "table",
+          "title": "List Methods Table",
+          "headers": [
+            "Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "append",
+              "list.append(item)",
+              "Appends item to the end of the list."
+            ],
+            [
+              "prepend",
+              "list.prepend(item)",
+              "Inserts item at index 0."
+            ],
+            [
+              "insert",
+              "list.insert(index, item)",
+              "Inserts item at the specified 0-based index."
+            ],
+            [
+              "pop",
+              "list.pop(index?)",
+              "Removes and returns item at index (default: last item)."
+            ],
+            [
+              "remove",
+              "list.remove(item)",
+              "Removes the first occurrence of item from the list."
+            ],
+            [
+              "clear",
+              "list.clear()",
+              "Removes all elements from the list."
+            ],
+            [
+              "sort",
+              "list.sort()",
+              "Sorts the list in ascending order in-place."
+            ],
+            [
+              "reverse",
+              "list.reverse()",
+              "Reverses elements in-place."
+            ],
+            [
+              "slice",
+              "list.slice(start, end, step?)",
+              "Returns a new sub-list from start to end."
+            ],
+            [
+              "join",
+              "list.join(delim)",
+              "Joins elements into a string separated by delimiter."
+            ],
+            [
+              "index_of",
+              "list.index_of(item)",
+              "Returns index of first match, or -1 if not found."
+            ],
+            [
+              "contains",
+              "list.contains(item)",
+              "Returns True if item is in list, else False."
+            ],
+            [
+              "extend",
+              "list.extend(other_list)",
+              "Appends all elements from another list."
+            ],
+            [
+              "copy",
+              "list.copy()",
+              "Returns a shallow copy of the list."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "List Methods in Action",
+          "filename": "list_methods_demo.sad",
+          "code": "nums = [30, 10, 50, 20, 40]\nshow(\"Initial:\", nums)\n\n# In-place Sort and Reverse\nnums.sort()\nshow(\"Sorted:\", nums)\nnums.reverse()\nshow(\"Reversed:\", nums)\n\n# Append, Prepend, Insert\nnums.append(5)\nnums.prepend(100)\nnums.insert(2, 75)\nshow(\"After mutations:\", nums)\n\n# Pop and Remove\npopped = nums.pop()\nshow(\"Popped item:\", popped, \"| Remaining:\", nums)\nnums.remove(75)\nshow(\"After remove(75):\", nums)\n\n# Querying\nshow(\"contains(30):\", nums.contains(30))\nshow(\"index_of(30):\", nums.index_of(30))\n\n# Slice and Join\nsub = nums.slice(1, 4)\nshow(\"Slice [1:4]:\", sub)\n\nwords = [\"Sardine\", \"is\", \"fast\"]\nshow(\"Joined:\", words.join(\" \"))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Initial: [30, 10, 50, 20, 40]\nSorted: [10, 20, 30, 40, 50]\nReversed: [50, 40, 30, 20, 10]\nAfter mutations: [100, 50, 75, 40, 30, 20, 10, 5]\nPopped item: 5 | Remaining: [100, 50, 75, 40, 30, 20, 10]\nAfter remove(75): [100, 50, 40, 30, 20, 10]\ncontains(30): 1\nindex_of(30): 3\nSlice [1:4]: [50, 40, 30]\nJoined: Sardine is fast"
+        }
+      ]
+    },
+    "list-comprehensions": {
+      "id": "list-comprehensions",
+      "title": "List Comprehensions",
+      "badge": "Comprehensions",
+      "category": "collections",
+      "summary": "Expressive syntactic constructs to generate transformed and filtered lists using `cycle` and `trace`.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Comprehension Forms",
+          "content": "Sardine supports concise list comprehensions combining an expression with either a `cycle` or `trace` clause and an optional `when` filter condition:\n\n1. **Cycle Comprehension**: `[expr cycle i = start:end (:step)? (when cond)?]`\n2. **Trace Comprehension**: `[expr trace item <- collection (when cond)?]`\n3. **Multi-Variable Trace Comprehension**: `[expr trace k, v <- pairs (when cond)?]`"
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "# Range-based with filter\n[x ** 2 cycle x = 1 : 10 when x % 2 == 0]\n\n# Sequence-based with filter\n[item.upper() trace item <- words when len(item) > 3]"
+        },
+        {
+          "tag": "example",
+          "title": "Generating Transformed Lists",
+          "filename": "comprehensions_demo.sad",
+          "code": "# 1. Squares of numbers 1 to 5\nsquares = [x * x cycle x = 1 : 5]\nshow(\"Squares:\", squares)\n\n# 2. Filtered even numbers from 0 to 10 with step\nevens = [n cycle n = 0 : 10 : 2]\nshow(\"Evens (step 2):\", evens)\n\n# 3. Squares of odd numbers with 'when' clause\nodd_squares = [x ** 2 cycle x = 1 : 10 when x % 2 != 0]\nshow(\"Odd squares:\", odd_squares)\n\n# 4. Transforming an existing list via trace\nraw_names = [\"alice\", \"bob\", \"charlie\", \"dan\"]\nuppers = [name.upper() trace name <- raw_names when len(name) > 3]\nshow(\"Filtered Uppercase names:\", uppers)\n\n# 5. Extracting and calculating from pairs\npairs = [[1, 10], [2, 20], [3, 30]]\nsums = [k + v trace k, v <- pairs]\nshow(\"Pair sums:\", sums)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Squares: [1, 4, 9, 16, 25]\nEvens (step 2): [0, 2, 4, 6, 8, 10]\nOdd squares: [1, 9, 25, 49, 81]\nFiltered Uppercase names: ['ALICE', 'CHARLIE']\nPair sums: [11, 22, 33]"
+        },
+        {
+          "tag": "tip",
+          "title": "Comprehension Scope Isolation",
+          "content": "Variables defined inside a comprehension clause (like `x` in `cycle x = 1:5`) are scoped strictly to the comprehension and do not overwrite variables in the enclosing environment."
+        }
+      ]
+    },
+    "dictionaries": {
+      "id": "dictionaries",
+      "title": "Dictionaries (Hash Maps)",
+      "badge": "Collections",
+      "category": "collections",
+      "summary": "Key-value hash maps, indexing, dictionary merging, and key dropping operations.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Dictionary Fundamentals",
+          "content": "Dictionaries in Sardine store key-value mappings inside `{key: value, ...}`. Keys can be strings or numbers. Values can be any data type, including nested lists, models, or other dictionaries.\n\nSardine features dedicated operators for dictionaries:\n* `+`: Merges two dictionaries. If duplicate keys exist, RHS overwrites LHS.\n* `-`: Removes a key from a dictionary (e.g. `dict - \"key\"`)."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "d = {\"host\": \"localhost\", \"port\": 8080}\nvalue = d[\"host\"]       # Direct access\nd[\"port\"] = 9000        # Mutation\nmerged = d1 + d2        # Merges d1 and d2\ndropped = d - \"host\"    # Removes key"
+        },
+        {
+          "tag": "example",
+          "title": "Dictionary Operations & Operators",
+          "filename": "dict_demo.sad",
+          "code": "# Creating a dictionary\nconfig = {\"theme\": \"dark\", \"fontSize\": 14, \"showMinimap\": True}\nshow(\"Config:\", config)\nshow(\"Theme:\", config[\"theme\"])\n\n# Modifying entries\nconfig[\"fontSize\"] = 16\nshow(\"Updated font size:\", config[\"fontSize\"])\n\n# Dictionary Merge (+)\ndefaults = {\"theme\": \"light\", \"autoSave\": True}\noverrides = {\"theme\": \"midnight\", \"telemetry\": False}\nfinal_settings = defaults + overrides\nshow(\"Merged Settings (+):\", final_settings)\n\n# Removing key (-)\nwithout_theme = final_settings - \"theme\"\nshow(\"After dropping 'theme' (-):\", without_theme)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Config: {'theme': 'dark', 'fontSize': 14, 'showMinimap': 1}\nTheme: dark\nUpdated font size: 16\nMerged Settings (+): {'theme': 'midnight', 'autoSave': 1, 'telemetry': 0}\nAfter dropping 'theme' (-): {'autoSave': 1, 'telemetry': 0}"
+        }
+      ]
+    },
+    "dict-methods": {
+      "id": "dict-methods",
+      "title": "Dictionary Built-in Methods",
+      "badge": "Methods Reference",
+      "category": "collections",
+      "summary": "10 built-in methods for querying keys, values, safe lookups, popping, and batch updating.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Dictionary API Reference",
+          "content": "Dictionaries expose methods for inspection, querying, extraction, and batch updates."
+        },
+        {
+          "tag": "table",
+          "title": "Dictionary Methods",
+          "headers": [
+            "Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "keys",
+              "dict.keys()",
+              "Returns a List of all keys in the dictionary."
+            ],
+            [
+              "values",
+              "dict.values()",
+              "Returns a List of all values in the dictionary."
+            ],
+            [
+              "entries",
+              "dict.entries()",
+              "Returns a List of [key, value] pairs."
+            ],
+            [
+              "get",
+              "dict.get(key, default?)",
+              "Returns value for key, or default (Null if omitted) if missing."
+            ],
+            [
+              "has_key",
+              "dict.has_key(key)",
+              "Returns True if key exists in dictionary, else False."
+            ],
+            [
+              "pop",
+              "dict.pop(key, default?)",
+              "Removes key and returns its value."
+            ],
+            [
+              "pop_item",
+              "dict.pop_item()",
+              "Removes and returns an arbitrary [key, value] pair."
+            ],
+            [
+              "update",
+              "dict.update(other_dict)",
+              "Updates dictionary in-place with entries from other_dict."
+            ],
+            [
+              "clear",
+              "dict.clear()",
+              "Removes all key-value entries."
+            ],
+            [
+              "copy",
+              "dict.copy()",
+              "Returns a shallow copy of the dictionary."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Using Dictionary Methods",
+          "filename": "dict_methods_demo.sad",
+          "code": "inventory = {\"apple\": 50, \"orange\": 30, \"banana\": 25}\n\n# Keys, Values, Entries\nshow(\"Keys:\", inventory.keys())\nshow(\"Values:\", inventory.values())\nshow(\"Entries:\", inventory.entries())\n\n# Safe lookups with get()\nshow(\"get('apple'):\", inventory.get(\"apple\"))\nshow(\"get('grape', 0):\", inventory.get(\"grape\", 0))\n\n# Key checking\nshow(\"has_key('orange'):\", inventory.has_key(\"orange\"))\nshow(\"has_key('pear'):\", inventory.has_key(\"pear\"))\n\n# Popping entries\npopped = inventory.pop(\"banana\")\nshow(\"Popped banana count:\", popped)\nshow(\"Inventory after pop:\", inventory)\n\n# Batch updating\ninventory.update({\"grape\": 100, \"melon\": 15})\nshow(\"After update:\", inventory)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Keys: ['apple', 'orange', 'banana']\nValues: [50, 30, 25]\nEntries: [['apple', 50], ['orange', 30], ['banana', 25]]\nget('apple'): 50\nget('grape', 0): 0\nhas_key('orange'): 1\nhas_key('pear'): 0\nPopped banana count: 25\nInventory after pop: {'apple': 50, 'orange': 30}\nAfter update: {'apple': 50, 'orange': 30, 'grape': 100, 'melon': 15}"
+        }
+      ]
+    },
+    "dict-comprehensions": {
+      "id": "dict-comprehensions",
+      "title": "Dictionary Comprehensions",
+      "badge": "Comprehensions",
+      "category": "collections",
+      "summary": "Build and transform key-value mappings dynamically using `cycle` and `trace` clauses.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Dynamic Map Creation",
+          "content": "Dictionary comprehensions build hash maps on the fly using `{key_expr : val_expr clause}` syntax, supporting both `cycle` and `trace` with optional `when` filter guards."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "# Range-based dict comprehension\n{x : x ** 2 cycle x = 1 : 5}\n\n# Iteration over pairs with filter\n{k : v trace k, v <- pairs when v > 10}"
+        },
+        {
+          "tag": "example",
+          "title": "Dictionary Comprehension Examples",
+          "filename": "dict_comprehensions_demo.sad",
+          "code": "# 1. Number to its square mapping\nsquares_map = {i : i * i cycle i = 1 : 4}\nshow(\"Squares Map:\", squares_map)\n\n# 2. Filtered cycle comprehension (evens only)\neven_cubes = {n : n ** 3 cycle n = 1 : 6 when n % 2 == 0}\nshow(\"Even Cubes:\", even_cubes)\n\n# 3. Trace over list to create lookup dictionary\nroles = [[\"admin\", 1], [\"editor\", 2], [\"viewer\", 3]]\nrole_map = {name : id trace name, id <- roles}\nshow(\"Role Lookup:\", role_map)\n\n# 4. Transform string keys\nraw_data = [[\"apple\", 5], [\"banana\", 12]]\nupper_data = {fruit.upper() : count * 10 trace fruit, count <- raw_data}\nshow(\"Transformed Dict:\", upper_data)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Squares Map: {1: 1, 2: 4, 3: 9, 4: 16}\nEven Cubes: {2: 8, 4: 64, 6: 216}\nRole Lookup: {'admin': 1, 'editor': 2, 'viewer': 3}\nTransformed Dict: {'APPLE': 50, 'BANANA': 120}"
+        }
+      ]
+    },
+    "model-definition": {
+      "id": "model-definition",
+      "title": "Model Class Definition",
+      "badge": "OOP",
+      "category": "oop",
+      "summary": "Declaring object blueprints using the `model` keyword, member methods, and object instantiation.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Object-Oriented Programming with Models",
+          "content": "In Sardine, classes are defined using the `model` keyword. Models encapsulate state (attributes) and behavior (methods).\n\nInstances of a model are instantiated by calling the model name like a function: `instance = ModelName(arguments)`."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "model ClassName {\n    # Attribute declarations\n    open attr <field1, field2>\n\n    # Constructor\n    init(field1, field2) {\n        field1: field1,\n        field2: field2\n    }\n\n    # Methods\n    open method display() {\n        # ...\n    }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "A Complete Model Class",
+          "filename": "model_demo.sad",
+          "code": "model Point {\n    open attr <x, y>\n\n    init(x = 0, y = 0) {\n        x: x,\n        y: y\n    }\n\n    open method distance_from_origin() {\n        yield ((x ** 2) + (y ** 2)) ** 0.5\n    }\n\n    open method translate(dx, dy) {\n        x += dx\n        y += dy\n    }\n\n    open method show_point() {\n        show($\"Point({x}, {y})\")\n    }\n}\n\n# Instantiation\npt = Point(3, 4)\npt.show_point()\nshow(\"Distance from origin:\", pt.distance_from_origin())\n\n# Mutating instance state\npt.translate(2, -1)\npt.show_point()"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Point(3, 4)\nDistance from origin: 5\nPoint(5, 3)"
+        }
+      ]
+    },
+    "attributes-visibility": {
+      "id": "attributes-visibility",
+      "title": "Attributes & Visibility Modifiers",
+      "badge": "Encapsulation",
+      "category": "oop",
+      "summary": "Granular member visibility controls: `open` (public), `guarded` (protected), and `secret` (private).",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Access Control Specifiers",
+          "content": "Sardine enforces strict encapsulation with three visibility modifiers that can be applied to both attributes (`attr <...>`) and methods (`method ...()`):\n\n* `open`: **Public**. Unrestricted access from anywhere, including external callers.\n* `guarded`: **Protected**. Accessible within the defining model and all derived subclasses.\n* `secret`: **Private**. Strictly restricted to the defining model. Subclasses and external callers cannot read or modify secret members."
+        },
+        {
+          "tag": "table",
+          "title": "Visibility Matrix",
+          "headers": [
+            "Modifier",
+            "Defining Model",
+            "Derived Subclasses",
+            "External Callers"
+          ],
+          "rows": [
+            [
+              "open",
+              "Full Access",
+              "Full Access",
+              "Full Access"
+            ],
+            [
+              "guarded",
+              "Full Access",
+              "Full Access",
+              "Blocked (AttributeError)"
+            ],
+            [
+              "secret",
+              "Full Access",
+              "Blocked (AttributeError)",
+              "Blocked (AttributeError)"
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Encapsulation Demonstration",
+          "filename": "visibility_demo.sad",
+          "code": "model BankAccount {\n    open attr <account_holder>\n    guarded attr <balance>\n    secret attr <pin>\n\n    init(holder, initial_balance, pin_code) {\n        account_holder: holder,\n        balance: initial_balance,\n        pin: pin_code\n    }\n\n    open method deposit(amount) {\n        when amount > 0 {\n            balance += amount\n            show($\"Deposited ${amount}. New balance: ${balance}\")\n        }\n    }\n\n    open method check_balance(entered_pin) {\n        when entered_pin == pin {\n            yield balance\n        }\n        show(\"Access Denied: Invalid PIN!\")\n        yield Null\n    }\n}\n\nacc = BankAccount(\"Souvik\", 1000, 4321)\nshow(\"Public holder name:\", acc.account_holder)\nacc.deposit(250)\nshow(\"Verified balance:\", acc.check_balance(4321))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Public holder name: Souvik\nDeposited $250. New balance: $1250\nVerified balance: 1250"
+        },
+        {
+          "tag": "warning",
+          "title": "Direct Secret Access",
+          "content": "Attempting to access `acc.pin` from outside the `BankAccount` model will immediately raise an `AttributeError: Secret member 'pin' cannot be accessed from external context`."
+        }
+      ]
+    },
+    "constructors": {
+      "id": "constructors",
+      "title": "Constructors & Initializers (`init`)",
+      "badge": "OOP",
+      "category": "oop",
+      "summary": "Named `init` constructors with C++-style initializer lists, default parameters, and execution bodies.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Constructor Architecture",
+          "content": "Constructors in Sardine are named `init`. They feature a dedicated **initializer list** section before the constructor body, setting attributes before body execution begins.\n\nParameters can specify default values. Resolved member offsets are cached in the C++ engine for fast O(1) attribute setup."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "model ServerConfig {\n    open attr <host, port, timeout>\n\n    init(host = \"localhost\", port = 8080, timeout = 30) {\n        host: host,\n        port: port,\n        timeout: timeout\n        # Optional post-initialization statements\n        show(\"Initialized server config\")\n    }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Chained Constructor Initializers",
+          "filename": "init_demo.sad",
+          "code": "model DatabaseConfig {\n    open attr <host, port, username, max_connections>\n\n    init(host = \"localhost\", port = 5432, username = \"postgres\", max_connections = 100) {\n        host: host,\n        port: port,\n        username: username,\n        max_connections: max_connections\n        show($\"Config created: {username}@{host}:{port} (Pool: {max_connections})\")\n    }\n}\n\n# 1. Using default parameters\ncfg1 = DatabaseConfig()\n\n# 2. Overriding port and host positionally\ncfg2 = DatabaseConfig(\"db.production.internal\", 5433)\n\n# 3. Custom user and connections\ncfg3 = DatabaseConfig(\"10.0.0.5\", 5432, \"app_user\", 500)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Config created: postgres@localhost:5432 (Pool: 100)\nConfig created: postgres@db.production.internal:5433 (Pool: 100)\nConfig created: app_user@10.0.0.5:5432 (Pool: 500)"
+        }
+      ]
+    },
+    "inheritance": {
+      "id": "inheritance",
+      "title": "Inheritance & `super()`",
+      "badge": "Polymorphism",
+      "category": "oop",
+      "summary": "Single and multi-level class inheritance, method overriding, runtime late-binding, and parent calls via `super()`.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Polymorphic Hierarchy",
+          "content": "Sardine supports single and multi-level model inheritance with the syntax `model Subclass: Superclass { ... }`.\n\n* **`super()`**: Calls the parent model's constructor or parent methods.\n* **Late-binding**: Overridden methods are dispatched dynamically based on the concrete instance at runtime."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "model Parent {\n    # ...\n}\n\nmodel Child: Parent {\n    init(args) {\n        # Initialize child & call parent constructor via super()\n    }\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Inheritance Hierarchy Demo",
+          "filename": "inheritance_demo.sad",
+          "code": "model Animal {\n    open attr <name, species>\n\n    init(name, species) {\n        name: name,\n        species: species\n    }\n\n    open method speak() {\n        yield \"Some generic sound\"\n    }\n\n    open method describe() {\n        show($\"{name} is a {species}. It says: {speak()}\")\n    }\n}\n\nmodel Dog: Animal {\n    open attr <breed>\n\n    init(name, breed) {\n        name: name,\n        species: \"Canine\",\n        breed: breed\n    }\n\n    # Override speak()\n    open method speak() {\n        yield \"Woof! Woof!\"\n    }\n}\n\nmodel Cat: Animal {\n    init(name) {\n        name: name,\n        species: \"Feline\"\n    }\n\n    # Override speak()\n    open method speak() {\n        yield \"Meow!\"\n    }\n}\n\ndog = Dog(\"Buddy\", \"Golden Retriever\")\ncat = Cat(\"Luna\")\n\ndog.describe()\ncat.describe()"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Buddy is a Canine. It says: Woof! Woof!\nLuna is a Feline. It says: Meow!"
+        }
+      ]
+    },
+    "dunder-methods": {
+      "id": "dunder-methods",
+      "title": "Operator Overloading (Dunder Methods)",
+      "badge": "Operator Overloading",
+      "category": "oop",
+      "summary": "Implement custom arithmetic and comparison behavior for models using double-underscore magic methods.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Dunder Method Overloading",
+          "content": "Sardine allows user-defined models to participate in native operators by defining double-underscore ('dunder') methods.\n\nWhen an expression such as `a + b` is evaluated, the interpreter delegates to `a.__add__(b)` if defined."
+        },
+        {
+          "tag": "table",
+          "title": "Supported Dunder Methods",
+          "headers": [
+            "Method",
+            "Operator",
+            "Description"
+          ],
+          "rows": [
+            [
+              "__add__",
+              "+",
+              "Overloads binary addition."
+            ],
+            [
+              "__sub__",
+              "-",
+              "Overloads binary subtraction."
+            ],
+            [
+              "__mul__",
+              "*",
+              "Overloads binary multiplication."
+            ],
+            [
+              "__div__",
+              "/",
+              "Overloads binary division."
+            ],
+            [
+              "__mod__",
+              "%",
+              "Overloads modulus."
+            ],
+            [
+              "__floor__",
+              "//",
+              "Overloads floor division."
+            ],
+            [
+              "__pow__",
+              "**",
+              "Overloads exponentiation."
+            ],
+            [
+              "__eq__",
+              "==",
+              "Overloads equality check."
+            ],
+            [
+              "__neq__",
+              "!=",
+              "Overloads inequality check."
+            ],
+            [
+              "__lt__",
+              "<",
+              "Overloads less-than comparison."
+            ],
+            [
+              "__gt__",
+              ">",
+              "Overloads greater-than comparison."
+            ],
+            [
+              "__neg__",
+              "-",
+              "Overloads unary negation (e.g. -v)."
+            ],
+            [
+              "__not__",
+              "not",
+              "Overloads logical negation."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "2D Vector Overloading Arithmetic & Comparisons",
+          "filename": "dunders_demo.sad",
+          "code": "model Vec2 {\n    open attr <x, y>\n\n    init(x, y) {\n        x: x,\n        y: y\n    }\n\n    method __add__(other) {\n        yield Vec2(x + other.x, y + other.y)\n    }\n\n    method __sub__(other) {\n        yield Vec2(x - other.x, y - other.y)\n    }\n\n    method __mul__(scalar) {\n        yield Vec2(x * scalar, y * scalar)\n    }\n\n    method __eq__(other) {\n        yield (x == other.x) and (y == other.y)\n    }\n\n    method __neg__() {\n        yield Vec2(-x, -y)\n    }\n\n    method to_str() {\n        yield $\"Vec2({x}, {y})\"\n    }\n}\n\nv1 = Vec2(10, 20)\nv2 = Vec2(5, 15)\n\n# Vector Addition\nv3 = v1 + v2\nshow(\"v1 + v2 =\", v3.to_str())\n\n# Vector Subtraction\nv4 = v1 - v2\nshow(\"v1 - v2 =\", v4.to_str())\n\n# Scalar Multiplication\nv5 = v1 * 3\nshow(\"v1 * 3 =\", v5.to_str())\n\n# Equality check\nshow(\"v1 == v2:\", v1 == v2)\nshow(\"v1 == Vec2(10, 20):\", v1 == Vec2(10, 20))\n\n# Negation\nv_neg = -v1\nshow(\"-v1 =\", v_neg.to_str())"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "v1 + v2 = Vec2(15, 35)\nv1 - v2 = Vec2(5, 5)\nv1 * 3 = Vec2(30, 60)\nv1 == v2: 0\nv1 == Vec2(10, 20): 1\n-v1 = Vec2(-10, -20)"
+        }
+      ]
+    },
+    "type-reflection": {
+      "id": "type-reflection",
+      "title": "Type Checking (`is_a` & `type`)",
+      "badge": "Reflection",
+      "category": "oop",
+      "summary": "Runtime type reflection, polymorphic instance checks, and type identity.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Runtime Type Inspection",
+          "content": "Sardine provides two primary built-ins for type inspection:\n* `type(val)`: Returns the string type name (e.g. `'Integer'`, `'String'`, `'List'`, or the model name).\n* `is_a(instance, ModelClass)`: Tests if an object is an instance of a given model class or any of its parent classes in the inheritance hierarchy."
+        },
+        {
+          "tag": "example",
+          "title": "Type Reflection in Action",
+          "filename": "type_reflection_demo.sad",
+          "code": "model Shape {}\nmodel Circle: Shape {}\nmodel Rectangle: Shape {}\n\nc = Circle()\nr = Rectangle()\n\n# Testing type() names\nshow(\"type(c):\", type(c))\nshow(\"type(r):\", type(r))\nshow(\"type(42):\", type(42))\nshow(\"type('text'):\", type(\"text\"))\n\n# Testing is_a() hierarchy\nshow(\"is_a(c, Circle):\", is_a(c, Circle))\nshow(\"is_a(c, Shape):\", is_a(c, Shape))\nshow(\"is_a(c, Rectangle):\", is_a(c, Rectangle))\nshow(\"is_a(r, Shape):\", is_a(r, Shape))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "type(c): Circle\ntype(r): Rectangle\ntype(42): Integer\ntype('text'): String\nis_a(c, Circle): 1\nis_a(c, Shape): 1\nis_a(c, Rectangle): 0\nis_a(r, Shape): 1"
+        }
+      ]
+    },
+    "risk-trap": {
+      "id": "risk-trap",
+      "title": "Risk / Trap / Clean (Exceptions)",
+      "badge": "Exceptions",
+      "category": "exceptions",
+      "summary": "Structured exception handling using `risk` (try), `trap` (catch), and `clean` (finally).",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Exception Interception",
+          "content": "Sardine replaces traditional try-catch-finally keywords with declarative keywords:\n* `risk { ... }`: The protected code block where potential exceptions may occur.\n* `trap [ErrorType] [err_var] { ... }`: Catches specified or generic errors. Captured error objects expose `.message` and `.traceback`.\n* `clean { ... }`: Cleanup block that is **always guaranteed to execute**, regardless of whether an exception was thrown."
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "risk {\n    # Dangerous operations\n} trap RunTimeError err {\n    # Handle specific error\n} clean {\n    # Cleanup (always runs)\n}"
+        },
+        {
+          "tag": "example",
+          "title": "Catching Zero Division & Cleanup",
+          "filename": "risk_trap_demo.sad",
+          "code": "# 1. Specific trap with clean block\nrisk {\n    show(\"Attempting division by zero...\")\n    val = 100 / 0\n    show(\"This line will NOT run\")\n} trap RunTimeError err {\n    show(\"Caught expected exception:\")\n    show(\"  Error Details:\", err.message)\n} clean {\n    show(\"Clean block executed: Resources released.\")\n}\n\n# 2. Bare trap (catches any error)\nshow(\"--- Bare Trap Demonstration ---\")\nrisk {\n    items = [1, 2]\n    bad_access = items[10]\n} trap {\n    show(\"Bare trap caught out-of-bounds error successfully!\")\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Attempting division by zero...\nCaught expected exception:\n  Error Details: Division by zero\nClean block executed: Resources released.\n--- Bare Trap Demonstration ---\nBare trap caught out-of-bounds error successfully!"
+        }
+      ]
+    },
+    "error-types": {
+      "id": "error-types",
+      "title": "Built-in Error Types",
+      "badge": "Error Catalog",
+      "category": "exceptions",
+      "summary": "Standard runtime error types raised by the Sardine interpreter and runtime evaluator.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Standard Exception Types",
+          "content": "Sardine categorizes runtime faults into concrete, inspectable error classes that can be targeted in `trap` blocks."
+        },
+        {
+          "tag": "table",
+          "title": "Error Types Catalog",
+          "headers": [
+            "Error Type",
+            "Trigger Condition",
+            "Example"
+          ],
+          "rows": [
+            [
+              "RunTimeError",
+              "General runtime evaluation failure or base error.",
+              "Generic runtime traps."
+            ],
+            [
+              "DivisionByZeroError",
+              "Division or modulus by numeric zero.",
+              "10 / 0 or 15 % 0"
+            ],
+            [
+              "IndexOutOfBoundsError",
+              "Accessing a list or string index beyond valid bounds.",
+              "lst[999] where len is 5"
+            ],
+            [
+              "DictKeyError",
+              "Accessing a missing key in a dictionary without .get().",
+              "dict[\"missing_key\"]"
+            ],
+            [
+              "TypeError",
+              "Passing incompatible data types to an operator.",
+              "\"text\" + 10"
+            ],
+            [
+              "ArgumentError",
+              "Passing wrong number of arguments to a method.",
+              "len(1, 2)"
+            ],
+            [
+              "AttributeError",
+              "Accessing non-existent or secret model attributes.",
+              "obj.secret_attr"
+            ],
+            [
+              "ModuleError",
+              "Summoning an unknown module or missing exported symbol.",
+              "summon nonexistent"
+            ],
+            [
+              "FileIOError",
+              "File access, read, write, or permission failure.",
+              "fopen(\"invalid/path.txt\", \"r\")"
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Targeting Specific Errors",
+          "filename": "specific_errors_demo.sad",
+          "code": "method test_error(code) {\n    risk {\n        when code == 1 {\n            x = 10 / 0\n        } orwhen code == 2 {\n            d = {\"a\": 1}\n            x = d[\"missing\"]\n        } otherwise {\n            lst = [1]\n            x = lst[10]\n        }\n    } trap DivisionByZeroError e {\n        show(\"Handled DivisionByZeroError:\", e.message)\n    } trap DictKeyError e {\n        show(\"Handled DictKeyError:\", e.message)\n    } trap IndexOutOfBoundsError e {\n        show(\"Handled IndexOutOfBoundsError:\", e.message)\n    }\n}\n\ntest_error(1)\ntest_error(2)\ntest_error(3)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Handled DivisionByZeroError: Division by zero\nHandled DictKeyError: Key 'missing' not found in Dictionary\nHandled IndexOutOfBoundsError: Index 10 out of bounds for list"
+        }
+      ]
+    },
+    "custom-errors": {
+      "id": "custom-errors",
+      "title": "Custom Errors & Throwing (`throw`)",
+      "badge": "Error Handling",
+      "category": "exceptions",
+      "summary": "Raising custom application exceptions using the `throw()` function and catching them by model class.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Custom Exception Models",
+          "content": "In Sardine, any model can act as a custom error. You trigger exceptions manually using `throw(instance)` or `error(message)`.\n\n`trap` clauses can specify the exact custom model name to catch only that class of error."
+        },
+        {
+          "tag": "example",
+          "title": "Custom Error Hierarchy",
+          "filename": "custom_errors_demo.sad",
+          "code": "model ValidationError {\n    open attr <field, message>\n\n    init(field, message) {\n        field: field,\n        message: message\n    }\n}\n\nmethod validate_age(age) {\n    when age < 0 {\n        throw(ValidationError(\"age\", \"Age cannot be negative\"))\n    } orwhen age > 150 {\n        throw(ValidationError(\"age\", \"Age exceeds human limit\"))\n    }\n    show(\"Age validated:\", age)\n}\n\n# Catching custom error\nrisk {\n    validate_age(-5)\n} trap ValidationError err {\n    show(\"Caught ValidationError:\")\n    show(\"  Field:\", err.field)\n    show(\"  Message:\", err.message)\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Caught ValidationError:\n  Field: age\n  Message: Age cannot be negative"
+        }
+      ]
+    },
+    "summon": {
+      "id": "summon",
+      "title": "Summon Module System (`summon`)",
+      "badge": "Modules",
+      "category": "modules",
+      "summary": "Importing modules and libraries via the 5 variants of the `summon` statement.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Module System",
+          "content": "Sardine uses the keyword `summon` to import standard library modules and external script files. The system supports 5 distinct import syntax variants."
+        },
+        {
+          "tag": "table",
+          "title": "The 5 Summon Syntax Variants",
+          "headers": [
+            "Variant",
+            "Syntax",
+            "Behavior"
+          ],
+          "rows": [
+            [
+              "1. Bare Module",
+              "summon math",
+              "Imports module into local namespace under its module name (`math.PI`)."
+            ],
+            [
+              "2. Module Alias",
+              "summon math as m",
+              "Imports module under a custom alias name (`m.PI`)."
+            ],
+            [
+              "3. Selective Import",
+              "summon square, sqrt from math",
+              "Imports only the specified identifiers directly into scope."
+            ],
+            [
+              "4. Selective Alias",
+              "summon factorial as fact from math",
+              "Imports a specific identifier under an alias name (`fact(5)`)."
+            ],
+            [
+              "5. Wildcard Import",
+              "summon * from math",
+              "Imports all public symbols from the module directly into scope."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Demonstrating All 5 Summon Variants",
+          "filename": "summon_demo.sad",
+          "code": "# 1. Bare Module Summon\nsummon math\nshow(\"math.PI =\", math.PI)\nshow(\"math.square(6) =\", math.square(6))\n\n# 2. Module Alias Summon\nsummon math as m\nshow(\"m.E =\", m.E)\nshow(\"m.cube(3) =\", m.cube(3))\n\n# 3. Selective Import\nsummon circle_area from math\nshow(\"circle_area(10) =\", circle_area(10))\n\n# 4. Selective Import with Alias\nsummon factorial as fact from math\nshow(\"fact(5) =\", fact(5))\n\n# 5. Wildcard Summon\nsummon * from math\nshow(\"TAU via wildcard =\", TAU)\nshow(\"hypot(3, 4) =\", hypot(3, 4))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "math.PI = 3.14159\nmath.square(6) = 36\nm.E = 2.71828\nm.cube(3) = 27\ncircle_area(10) = 314.159\nfact(5) = 120\nTAU via wildcard = 6.28319\nhypot(3, 4) = 5"
+        }
+      ]
+    },
+    "stdlib-math-core": {
+      "id": "stdlib-math-core",
+      "title": "Math: Constants, Powers & Roots (`math.sad`)",
+      "badge": "Standard Library",
+      "category": "stdlib",
+      "summary": "Core mathematical constants (PI, E, TAU, PHI, INF) and functions for absolute values, signs, powers, square roots, and hypotenuses.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Constants and Basic Power Algorithms",
+          "content": "Sardine's `math.sad` library defines high-precision mathematical constants and fundamental algebraic functions.\n\nSquare roots are calculated using a 60-iteration Newton-Raphson approximation delivering machine-level precision with zero external dependencies."
+        },
+        {
+          "tag": "table",
+          "title": "Constants and Root Operations",
+          "headers": [
+            "Identifier",
+            "Signature / Value",
+            "Description"
+          ],
+          "rows": [
+            [
+              "PI",
+              "3.14159265358979",
+              "Ratio of a circle's circumference to its diameter."
+            ],
+            [
+              "E",
+              "2.71828182845904",
+              "Euler's number, the base of natural logarithms."
+            ],
+            [
+              "TAU",
+              "6.28318530717958",
+              "Circle constant equal to 2 * PI."
+            ],
+            [
+              "PHI",
+              "1.61803398874989",
+              "The golden ratio constant."
+            ],
+            [
+              "INF",
+              "999999999999999",
+              "Practical infinity sentinel value."
+            ],
+            [
+              "abs(n)",
+              "math.abs(n)",
+              "Returns the absolute value of n (supports alias absolute(n))."
+            ],
+            [
+              "sign(n)",
+              "math.sign(n)",
+              "Returns -1 for negative, 1 for positive, and 0 for zero."
+            ],
+            [
+              "square(n)",
+              "math.square(n)",
+              "Returns n squared (n * n)."
+            ],
+            [
+              "cube(n)",
+              "math.cube(n)",
+              "Returns n cubed (n * n * n)."
+            ],
+            [
+              "pow(base, exp)",
+              "math.pow(b, e)",
+              "Computes base raised to power exp (supports negative exponents)."
+            ],
+            [
+              "sqrt(n)",
+              "math.sqrt(n)",
+              "Square root of n via Newton-Raphson approximation."
+            ],
+            [
+              "cbrt(n)",
+              "math.cbrt(n)",
+              "Cube root of n via iterative approximation."
+            ],
+            [
+              "hypot(a, b)",
+              "math.hypot(a, b)",
+              "Calculates Euclidean hypotenuse sqrt(a^2 + b^2)."
+            ]
+          ]
+        },
+        {
+          "tag": "syntax",
+          "title": "Syntax Blueprint",
+          "content": "summon math\n\nresult = math.sqrt(25)\nhyp = math.hypot(3, 4)"
+        },
+        {
+          "tag": "example",
+          "title": "Constants and Root Calculation",
+          "filename": "math_core_demo.sad",
+          "code": "summon math\n\nshow(\"--- Mathematical Constants ---\")\nshow(\"PI:\", math.PI)\nshow(\"E:\", math.E)\nshow(\"TAU (2 * PI):\", math.TAU)\nshow(\"Golden Ratio (PHI):\", math.PHI)\n\nshow(\"--- Basic Arithmetic & Roots ---\")\nshow(\"abs(-42):\", math.abs(-42))\nshow(\"sign(-99):\", math.sign(-99))\nshow(\"square(12):\", math.square(12))\nshow(\"cube(5):\", math.cube(5))\nshow(\"pow(2, 10):\", math.pow(2, 10))\nshow(\"sqrt(144):\", math.sqrt(144))\nshow(\"cbrt(27):\", math.cbrt(27))\nshow(\"hypot(6, 8):\", math.hypot(6, 8))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Mathematical Constants ---\nPI: 3.14159\nE: 2.71828\nTAU (2 * PI): 6.28319\nGolden Ratio (PHI): 1.61803\n--- Basic Arithmetic & Roots ---\nabs(-42): 42\nsign(-99): -1\nsquare(12): 144\ncube(5): 125\npow(2, 10): 1024\nsqrt(144): 12\ncbrt(27): 3\nhypot(6, 8): 10"
+        }
+      ]
+    },
+    "stdlib-math-rounding-exp": {
+      "id": "stdlib-math-rounding-exp",
+      "title": "Math: Rounding & Logarithms (`math.sad`)",
+      "badge": "Standard Library",
+      "category": "stdlib",
+      "summary": "Floor, ceiling, nearest rounding, range clamping, natural exponentials, natural logarithms, base-2, base-10, and arbitrary base logs.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Rounding and Logarithmic Functions",
+          "content": "The `math.sad` library provides integer truncation and rounding utilities along with Taylor-series approximations for exponentials and logarithms."
+        },
+        {
+          "tag": "table",
+          "title": "Rounding and Logarithms Reference",
+          "headers": [
+            "Function",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "floor",
+              "math.floor(n)",
+              "Returns the largest integer less than or equal to n."
+            ],
+            [
+              "ceil",
+              "math.ceil(n)",
+              "Returns the smallest integer greater than or equal to n."
+            ],
+            [
+              "round",
+              "math.round(n)",
+              "Rounds to the nearest integer value."
+            ],
+            [
+              "clamp",
+              "math.clamp(n, lo, hi)",
+              "Clamps n into the interval [lo, hi]."
+            ],
+            [
+              "exp",
+              "math.exp(n)",
+              "Computes e raised to power n via Taylor series."
+            ],
+            [
+              "ln",
+              "math.ln(n)",
+              "Computes natural logarithm (base e)."
+            ],
+            [
+              "log2",
+              "math.log2(n)",
+              "Computes base-2 logarithm: ln(n) / ln(2)."
+            ],
+            [
+              "log10",
+              "math.log10(n)",
+              "Computes base-10 logarithm: ln(n) / ln(10)."
+            ],
+            [
+              "log",
+              "math.log(n, base)",
+              "Computes logarithm of n in any base: ln(n) / ln(base)."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Rounding & Logarithm Demonstration",
+          "filename": "math_rounding_demo.sad",
+          "code": "summon math\n\nshow(\"--- Rounding Functions ---\")\nshow(\"floor(3.7):\", math.floor(3.7))\nshow(\"ceil(3.2):\", math.ceil(3.2))\nshow(\"round(3.6):\", math.round(3.6))\nshow(\"round(3.4):\", math.round(3.4))\nshow(\"clamp(150, 0, 100):\", math.clamp(150, 0, 100))\nshow(\"clamp(-10, 0, 100):\", math.clamp(-10, 0, 100))\n\nshow(\"--- Exponentials & Logarithms ---\")\nshow(\"exp(1):\", math.exp(1))\nshow(\"ln(math.E):\", math.ln(math.E))\nshow(\"log2(8):\", math.log2(8))\nshow(\"log(27, 3):\", math.log(27, 3))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Rounding Functions ---\nfloor(3.7): 3\nceil(3.2): 4\nround(3.6): 4\nround(3.4): 3\nclamp(150, 0, 100): 100\nclamp(-10, 0, 100): 0\n--- Exponentials & Logarithms ---\nexp(1): 2.71828\nln(math.E): 1\nlog2(8): 3\nlog(27, 3): 3"
+        }
+      ]
+    },
+    "stdlib-math-trig": {
+      "id": "stdlib-math-trig",
+      "title": "Math: Trigonometry & Angle Conversions (`math.sad`)",
+      "badge": "Standard Library",
+      "category": "stdlib",
+      "summary": "Trigonometric ratios (sin, cos, tan), inverse trigonometric arcs (asin, acos, atan, atan2), and degree/radian conversion utilities.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Trigonometric Framework",
+          "content": "All trigonometric functions in `math.sad` accept angles expressed in radians. Use `deg_to_rad(d)` and `rad_to_deg(r)` to convert between degrees and radians."
+        },
+        {
+          "tag": "table",
+          "title": "Trigonometry Functions Reference",
+          "headers": [
+            "Function",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "sin",
+              "math.sin(x)",
+              "Calculates sine of angle x (in radians)."
+            ],
+            [
+              "cos",
+              "math.cos(x)",
+              "Calculates cosine of angle x (in radians)."
+            ],
+            [
+              "tan",
+              "math.tan(x)",
+              "Calculates tangent of angle x: sin(x) / cos(x)."
+            ],
+            [
+              "asin",
+              "math.asin(x)",
+              "Inverse sine (arcsine) in radians."
+            ],
+            [
+              "acos",
+              "math.acos(x)",
+              "Inverse cosine (arccosine) in radians."
+            ],
+            [
+              "atan",
+              "math.atan(x)",
+              "Inverse tangent (arctangent) in radians."
+            ],
+            [
+              "atan2",
+              "math.atan2(y, x)",
+              "Two-argument arctangent resolving the full quadrant."
+            ],
+            [
+              "deg_to_rad",
+              "math.deg_to_rad(d)",
+              "Converts degrees to radians: d * PI / 180."
+            ],
+            [
+              "rad_to_deg",
+              "math.rad_to_deg(r)",
+              "Converts radians to degrees: r * 180 / PI."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Trigonometry & Polar Coordinates",
+          "filename": "trig_demo.sad",
+          "code": "summon math\n\n# 1. Degree / Radian conversion\nangle_deg = 45\nangle_rad = math.deg_to_rad(angle_deg)\nshow(\"45 degrees in radians:\", angle_rad)\nshow(\"Convert back to degrees:\", math.rad_to_deg(angle_rad))\n\n# 2. Direct Trig Functions\nshow(\"sin(45 deg):\", math.sin(angle_rad))\nshow(\"cos(45 deg):\", math.cos(angle_rad))\nshow(\"tan(45 deg):\", math.tan(angle_rad))\n\n# 3. Two-argument atan2 (resolves angle for quadrant)\nshow(\"atan2(1, 1):\", math.atan2(1, 1))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "45 degrees in radians: 0.785398\nConvert back to degrees: 45\nsin(45 deg): 0.707107\ncos(45 deg): 0.707107\ntan(45 deg): 1\natan2(1, 1): 0.793461"
+        }
+      ]
+    },
+    "stdlib-math-theory-geom": {
+      "id": "stdlib-math-theory-geom",
+      "title": "Math: Number Theory, Geometry & Combinatorics (`math.sad`)",
+      "badge": "Standard Library",
+      "category": "stdlib",
+      "summary": "Factorials, primes, GCD, LCM, geometric surface areas and volumes, permutations (nPr), and combinations (nCr).",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Number Theory & Shape Computations",
+          "content": "`math.sad` includes iterative number-theoretic routines that avoid recursion limits, along with geometric formulae and combinatorics."
+        },
+        {
+          "tag": "table",
+          "title": "Theory & Geometry Reference",
+          "headers": [
+            "Function",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "factorial",
+              "math.factorial(n)",
+              "Iterative n! computation (zero recursion depth limit)."
+            ],
+            [
+              "fibonacci",
+              "math.fibonacci(n)",
+              "Computes the nth Fibonacci number iteratively."
+            ],
+            [
+              "is_prime",
+              "math.is_prime(n)",
+              "Returns 1 if n is prime, 0 otherwise."
+            ],
+            [
+              "gcd",
+              "math.gcd(a, b)",
+              "Greatest common divisor using Euclidean algorithm."
+            ],
+            [
+              "lcm",
+              "math.lcm(a, b)",
+              "Least common multiple: (a * b) / gcd(a, b)."
+            ],
+            [
+              "is_even",
+              "math.is_even(n)",
+              "Returns 1 if n is even, 0 otherwise."
+            ],
+            [
+              "is_odd",
+              "math.is_odd(n)",
+              "Returns 1 if n is odd, 0 otherwise."
+            ],
+            [
+              "circle_area",
+              "math.circle_area(r)",
+              "Calculates area of circle with radius r: PI * r^2."
+            ],
+            [
+              "circle_perimeter",
+              "math.circle_perimeter(r)",
+              "Circumference of circle: 2 * PI * r."
+            ],
+            [
+              "triangle_area",
+              "math.triangle_area(b, h)",
+              "Area of triangle: 0.5 * b * h."
+            ],
+            [
+              "sphere_volume",
+              "math.sphere_volume(r)",
+              "Volume of sphere: (4/3) * PI * r^3."
+            ],
+            [
+              "cylinder_volume",
+              "math.cylinder_volume(r, h)",
+              "Volume of cylinder: PI * r^2 * h."
+            ],
+            [
+              "permutations",
+              "math.permutations(n, r)",
+              "Permutations nPr = n! / (n-r)!."
+            ],
+            [
+              "combinations",
+              "math.combinations(n, r)",
+              "Combinations nCr = n! / (r! * (n-r)!)."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Number Theory & Geometry in Action",
+          "filename": "number_theory_demo.sad",
+          "code": "summon math\n\nshow(\"--- Number Theory ---\")\nshow(\"factorial(5):\", math.factorial(5))\nshow(\"fibonacci(8):\", math.fibonacci(8))\nshow(\"is_prime(17):\", math.is_prime(17))\nshow(\"gcd(48, 18):\", math.gcd(48, 18))\nshow(\"lcm(4, 6):\", math.lcm(4, 6))\n\nshow(\"--- Geometry ---\")\nshow(\"circle_area(5):\", math.circle_area(5))\nshow(\"triangle_area(6, 4):\", math.triangle_area(6, 4))\nshow(\"sphere_volume(3):\", math.sphere_volume(3))\n\nshow(\"--- Combinatorics ---\")\nshow(\"Permutations 6P2:\", math.permutations(6, 2))\nshow(\"Combinations 6C2:\", math.combinations(6, 2))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Number Theory ---\nfactorial(5): 120\nfibonacci(8): 21\nis_prime(17): 1\ngcd(48, 18): 6\nlcm(4, 6): 12\n--- Geometry ---\ncircle_area(5): 78.5398\ntriangle_area(6, 4): 12\nsphere_volume(3): 113.097\n--- Combinatorics ---\nPermutations 6P2: 30\nCombinations 6C2: 15"
+        }
+      ]
+    },
+    "stdlib-linalg-vec": {
+      "id": "stdlib-linalg-vec",
+      "title": "Linear Algebra: Vectors (`vec` model in `linalg.sad`)",
+      "badge": "Linear Algebra",
+      "category": "stdlib",
+      "summary": "Vector model representation, overloaded arithmetic operators, dot products, 3D cross products, Euclidean L2 norms, normalization, and projection.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Vector Model Architecture",
+          "content": "The `vec` model in `linalg.sad` provides 1D numerical array operations with operator overloading (`+`, `-`, `* scalar`, `* vector` for dot product, `** scalar`, `-v`).\n\nIt includes methods for magnitudes, angle calculations, projections, and factory constructors."
+        },
+        {
+          "tag": "table",
+          "title": "Vector Methods and Operators",
+          "headers": [
+            "Operation / Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "vec(list)",
+              "linalg.vec([x, y, z])",
+              "Constructs vector from list of numbers."
+            ],
+            [
+              "v.data",
+              "v.data",
+              "Open attribute exposing underlying raw list."
+            ],
+            [
+              "v.size()",
+              "v.size()",
+              "Returns number of elements in the vector."
+            ],
+            [
+              "v1 + v2",
+              "v1 + v2",
+              "Element-wise vector addition."
+            ],
+            [
+              "v1 - v2",
+              "v1 - v2",
+              "Element-wise vector subtraction."
+            ],
+            [
+              "v * scalar",
+              "v * 3",
+              "Multiplies each vector element by scalar."
+            ],
+            [
+              "v1 * v2",
+              "v1 * v2",
+              "Calculates vector dot product (returns scalar Number)."
+            ],
+            [
+              "v ** scalar",
+              "v ** 2",
+              "Element-wise power."
+            ],
+            [
+              "-v",
+              "-v",
+              "Negates all elements."
+            ],
+            [
+              "v.norm()",
+              "v.norm()",
+              "Euclidean (L2) length: sqrt(sum(x_i^2))."
+            ],
+            [
+              "v.norm_l1()",
+              "v.norm_l1()",
+              "Manhattan (L1) norm: sum(|x_i|)."
+            ],
+            [
+              "v.normalize()",
+              "v.normalize()",
+              "Returns unit vector with norm 1.0 in same direction."
+            ],
+            [
+              "v.cross(other)",
+              "v.cross(other)",
+              "Calculates 3D cross product vector (v1 x v2)."
+            ],
+            [
+              "v.angle(other)",
+              "v.angle(other)",
+              "Calculates angle between vectors in radians."
+            ],
+            [
+              "v.project(other)",
+              "v.project(other)",
+              "Projects vector v onto other vector."
+            ],
+            [
+              "v.sum(), v.mean()",
+              "v.sum(), v.mean()",
+              "Calculates sum or mean of all elements."
+            ],
+            [
+              "v.min(), v.max()",
+              "v.min(), v.max()",
+              "Returns minimum or maximum element value."
+            ],
+            [
+              "v.zeros(n), v.ones(n)",
+              "v.zeros(3), v.ones(3)",
+              "Constructs all-zero or all-one vectors."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Vector Calculations Demo",
+          "filename": "vec_demo.sad",
+          "code": "summon linalg\n\nv1 = linalg.vec([1, 2, 3])\nv2 = linalg.vec([4, 5, 6])\n\nshow(\"v1 size:\", v1.size())\nshow(\"v1 + v2:\", (v1 + v2).data)\nshow(\"v1 - v2:\", (v1 - v2).data)\nshow(\"v1 * 3 (scalar):\", (v1 * 3).data)\nshow(\"v1 * v2 (dot product):\", v1 * v2)\nshow(\"v1 Euclidean norm:\", v1.norm())\nshow(\"v1 Manhattan L1 norm:\", v1.norm_l1())\nshow(\"v1 normalized:\", v1.normalize().data)\n\n# 3D Cross Product\nv3 = v1.cross(v2)\nshow(\"v1 cross v2:\", v3.data)\n\n# Metrics & Factories\nshow(\"v1 sum:\", v1.sum(), \"| mean:\", v1.mean())\nshow(\"zeros(3):\", v1.zeros(3).data)\nshow(\"ones(3):\", v1.ones(3).data)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "v1 size: 3\nv1 + v2: [5, 7, 9]\nv1 - v2: [-3, -3, -3]\nv1 * 3 (scalar): [3, 6, 9]\nv1 * v2 (dot product): 32\nv1 Euclidean norm: 3.74166\nv1 Manhattan L1 norm: 6\nv1 normalized: [0.267261, 0.534522, 0.801784]\nv1 cross v2: [-3, 6, -3]\nv1 sum: 6 | mean: 2\nzeros(3): [0, 0, 0]\nones(3): [1, 1, 1]"
+        }
+      ]
+    },
+    "stdlib-linalg-mat": {
+      "id": "stdlib-linalg-mat",
+      "title": "Linear Algebra: Matrices (`mat` model in `linalg.sad`)",
+      "badge": "Linear Algebra",
+      "category": "stdlib",
+      "summary": "Matrix model representation, matrix addition, multiplication, determinants, transposition, Gaussian rank, and matrix inversion.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Matrix Model Architecture",
+          "content": "The `mat` model in `linalg.sad` represents 2D matrices constructed from lists of row lists. It overloads arithmetic operators and provides matrix-vector and matrix-matrix multiplications."
+        },
+        {
+          "tag": "table",
+          "title": "Matrix Methods and Operators",
+          "headers": [
+            "Operation / Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "mat(2D_list)",
+              "linalg.mat([[1, 2], [3, 4]])",
+              "Constructs matrix from list of row lists."
+            ],
+            [
+              "m.rows",
+              "m.rows",
+              "Open attribute exposing row lists."
+            ],
+            [
+              "m.shape()",
+              "m.shape()",
+              "Returns [rows, cols] shape list."
+            ],
+            [
+              "m.is_square()",
+              "m.is_square()",
+              "Returns 1 if square matrix, 0 otherwise."
+            ],
+            [
+              "m1 + m2",
+              "m1 + m2",
+              "Element-wise matrix addition."
+            ],
+            [
+              "m1 - m2",
+              "m1 - m2",
+              "Element-wise matrix subtraction."
+            ],
+            [
+              "m * scalar",
+              "m * 5",
+              "Scalar matrix multiplication."
+            ],
+            [
+              "m * vec",
+              "m * v",
+              "Matrix-vector product (returns vec instance)."
+            ],
+            [
+              "m1 * m2",
+              "m1 * m2",
+              "Matrix-matrix multiplication."
+            ],
+            [
+              "m ** n",
+              "m ** 2",
+              "Matrix power (for square matrices)."
+            ],
+            [
+              "not m",
+              "!m",
+              "Matrix inversion via unary not operator."
+            ],
+            [
+              "m.transpose()",
+              "m.transpose()",
+              "Transposes rows and columns."
+            ],
+            [
+              "m.tr()",
+              "m.tr()",
+              "Trace: sum of main diagonal elements."
+            ],
+            [
+              "m.determinant()",
+              "m.determinant()",
+              "Calculates determinant via cofactor expansion."
+            ],
+            [
+              "m.inverse()",
+              "m.inverse()",
+              "Inverts matrix via Gauss-Jordan elimination."
+            ],
+            [
+              "m.rank()",
+              "m.rank()",
+              "Computes matrix rank using Gaussian elimination."
+            ],
+            [
+              "m.frobenius_norm()",
+              "m.frobenius_norm()",
+              "Frobenius norm: sqrt(sum(a_ij^2))."
+            ],
+            [
+              "m.identity(n)",
+              "m.identity(3)",
+              "Constructs n x n identity matrix."
+            ],
+            [
+              "m.diagonal(list)",
+              "m.diagonal([1, 2, 3])",
+              "Constructs diagonal matrix from list."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Matrix Operations in Action",
+          "filename": "mat_demo.sad",
+          "code": "summon linalg\n\nm1 = linalg.mat([[1, 2], [3, 4]])\nm2 = linalg.mat([[2, 0], [1, 2]])\n\nshow(\"m1 shape:\", m1.shape())\nshow(\"m1 is_square:\", m1.is_square())\nshow(\"m1 + m2:\", (m1 + m2).rows)\nshow(\"m1 * m2 (Matrix-Matrix):\", (m1 * m2).rows)\nshow(\"m1 * vec([1, 1]):\", (m1 * linalg.vec([1, 1])).data)\nshow(\"m1 ** 2 (Power):\", (m1 ** 2).rows)\n\n# Decomposition & Transforms\nshow(\"m1.transpose():\", m1.transpose().rows)\nshow(\"m1 trace:\", m1.tr())\nshow(\"m1 determinant:\", m1.determinant())\nshow(\"m1 rank:\", m1.rank())\nshow(\"m1 Frobenius norm:\", m1.frobenius_norm())\n\n# Factories\nshow(\"identity(2):\", m1.identity(2).rows)\nshow(\"diagonal([5, 10]):\", m1.diagonal([5, 10]).rows)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "m1 shape: [2, 2]\nm1 is_square: 1\nm1 + m2: [[3, 2], [4, 6]]\nm1 * m2 (Matrix-Matrix): [[4, 4], [10, 8]]\nm1 * vec([1, 1]): [3, 7]\nm1 ** 2 (Power): [[7, 10], [15, 22]]\nm1.transpose(): [[1, 3], [2, 4]]\nm1 trace: 5\nm1 determinant: -2\nm1 rank: 2\nm1 Frobenius norm: 5.47723\nidentity(2): [[1, 0], [0, 1]]\ndiagonal([5, 10]): [[5, 0], [0, 10]]"
+        }
+      ]
+    },
+    "stdlib-stat-central": {
+      "id": "stdlib-stat-central",
+      "title": "Statistics: Central Tendency & Dispersion (`stat.sad`)",
+      "badge": "Statistics",
+      "category": "stdlib",
+      "summary": "Arithmetic mean, geometric mean, harmonic mean, median, mode, range, and population/sample variances and standard deviations.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Descriptive Statistics",
+          "content": "The `stat.sad` library implements classical central tendency metrics and measures of spread.\n\nIt distinguishes between **population variance** (`variance`, dividing by N) and **sample variance** (`variance_s`, incorporating Bessel's correction N-1)."
+        },
+        {
+          "tag": "table",
+          "title": "Central Tendency & Dispersion Reference",
+          "headers": [
+            "Function",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "mean",
+              "stat.mean(data)",
+              "Arithmetic average: sum(x) / N."
+            ],
+            [
+              "geometric_mean",
+              "stat.geometric_mean(data)",
+              "Geometric mean: product(x)^(1/N)."
+            ],
+            [
+              "harmonic_mean",
+              "stat.harmonic_mean(data)",
+              "Harmonic mean: N / sum(1/x)."
+            ],
+            [
+              "median",
+              "stat.median(data)",
+              "Middle value of ordered dataset."
+            ],
+            [
+              "mode",
+              "stat.mode(data)",
+              "Most frequently occurring value."
+            ],
+            [
+              "range",
+              "stat.range(data)",
+              "Spread: max(data) - min(data)."
+            ],
+            [
+              "variance",
+              "stat.variance(data)",
+              "Population variance (dividing by N)."
+            ],
+            [
+              "variance_s",
+              "stat.variance_s(data)",
+              "Sample variance with Bessel's correction (dividing by N-1)."
+            ],
+            [
+              "stddev",
+              "stat.stddev(data)",
+              "Population standard deviation: sqrt(variance)."
+            ],
+            [
+              "stddev_s",
+              "stat.stddev_s(data)",
+              "Sample standard deviation: sqrt(variance_s)."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Central Tendency & Spread Analysis",
+          "filename": "stat_central_demo.sad",
+          "code": "summon stat\n\nd = [10, 12, 23, 23, 16, 23, 21, 16]\n\nshow(\"--- Central Tendency ---\")\nshow(\"mean:\", stat.mean(d))\nshow(\"harmonic_mean:\", stat.harmonic_mean(d))\nshow(\"median:\", stat.median(d))\nshow(\"mode:\", stat.mode(d))\n\nshow(\"--- Dispersion & Spread ---\")\nshow(\"range:\", stat.range(d))\nshow(\"variance (population):\", stat.variance(d))\nshow(\"variance_s (sample N-1):\", stat.variance_s(d))\nshow(\"stddev (population):\", stat.stddev(d))\nshow(\"stddev_s (sample N-1):\", stat.stddev_s(d))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Central Tendency ---\nmean: 18\nharmonic_mean: 16.4478\nmedian: 18.5\nmode: 23\n--- Dispersion & Spread ---\nrange: 13\nvariance (population): 24\nvariance_s (sample N-1): 27.4286\nstddev (population): 4.89898\nstddev_s (sample N-1): 5.23723"
+        }
+      ]
+    },
+    "stdlib-stat-advanced": {
+      "id": "stdlib-stat-advanced",
+      "title": "Statistics: Correlation, Quantiles & Series (`stat.sad`)",
+      "badge": "Statistics",
+      "category": "stdlib",
+      "summary": "Z-score normalization, min-max scaling, percentiles, quartiles, interquartile range (IQR), covariance, Pearson correlation, and moving averages.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Advanced Statistical Analysis",
+          "content": "`stat.sad` supports distribution analysis, normalization, bivariate correlation, time-series smoothing, and frequency counting."
+        },
+        {
+          "tag": "table",
+          "title": "Advanced Statistics Reference",
+          "headers": [
+            "Function",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "zscore",
+              "stat.zscore(data)",
+              "Returns list of standard scores: (x - mean) / stddev."
+            ],
+            [
+              "normalize",
+              "stat.normalize(data)",
+              "Min-max normalization scaling data into [0.0, 1.0]."
+            ],
+            [
+              "percentile",
+              "stat.percentile(data, p)",
+              "Calculates p-th percentile (0 <= p <= 100)."
+            ],
+            [
+              "quartiles",
+              "stat.quartiles(data)",
+              "Returns [Q1, Q2, Q3] (25th, 50th, 75th percentiles)."
+            ],
+            [
+              "iqr",
+              "stat.iqr(data)",
+              "Interquartile range: Q3 - Q1."
+            ],
+            [
+              "covariance",
+              "stat.covariance(x, y)",
+              "Population covariance between datasets x and y."
+            ],
+            [
+              "covariance_s",
+              "stat.covariance_s(x, y)",
+              "Sample covariance between datasets x and y."
+            ],
+            [
+              "correlation",
+              "stat.correlation(x, y)",
+              "Pearson correlation coefficient r in [-1.0, 1.0]."
+            ],
+            [
+              "moving_average",
+              "stat.moving_average(data, w)",
+              "Simple moving average using rolling window w."
+            ],
+            [
+              "frequency",
+              "stat.frequency(data)",
+              "Returns dictionary mapping each value to its occurrence count."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Correlation, Quantiles and Moving Averages",
+          "filename": "stat_advanced_demo.sad",
+          "code": "summon stat\n\nd = [10, 12, 23, 23, 16, 23, 21, 16]\n\nshow(\"--- Normalization & Quantiles ---\")\nshow(\"normalize (min-max):\", stat.normalize(d))\nshow(\"percentile(75):\", stat.percentile(d, 75))\nshow(\"quartiles [Q1, Q2, Q3]:\", stat.quartiles(d))\nshow(\"iqr (Q3 - Q1):\", stat.iqr(d))\n\nshow(\"--- Bivariate Correlation & Frequency ---\")\nx = [1, 2, 3, 4, 5]\ny = [2, 4, 6, 8, 10]\nshow(\"covariance:\", stat.covariance(x, y))\nshow(\"Pearson correlation:\", stat.correlation(x, y))\nshow(\"moving_average(window=3):\", stat.moving_average(x, 3))\nshow(\"frequency map:\", stat.frequency(d))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Normalization & Quantiles ---\nnormalize (min-max): [0, 0.153846, 1, 1, 0.461538, 1, 0.846154, 0.461538]\npercentile(75): 23\nquartiles [Q1, Q2, Q3]: [15, 18.5, 23]\niqr (Q3 - Q1): 8\n--- Bivariate Correlation & Frequency ---\ncovariance: 4\nPearson correlation: 1\nmoving_average(window=3): [2, 3, 4]\nfrequency map: {10: 1, 12: 1, 23: 3, 16: 2, 21: 1}"
+        }
+      ]
+    },
+    "stdlib-random-rng": {
+      "id": "stdlib-random-rng",
+      "title": "Random: PRNG & Probability Simulations (`rng` model in `random.sad`)",
+      "badge": "Random Utilities",
+      "category": "stdlib",
+      "summary": "Linear Congruential Generator (LCG) state, uniform floats, integer ranges, coin flips, shuffling, list sampling, dice, Bernoulli and Geometric distributions.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Random Number Generation with rng",
+          "content": "The `random.sad` library encapsulates a Linear Congruential Generator (LCG) inside the `rng` model.\n\nYou instantiate an RNG instance with a seed: `r = random.rng(seed)` or use `random.default_seed` (123456789)."
+        },
+        {
+          "tag": "table",
+          "title": "RNG Methods Reference",
+          "headers": [
+            "Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "rand",
+              "r.rand()",
+              "Returns uniform float in [0.0, 1.0)."
+            ],
+            [
+              "rand_nonzero",
+              "r.rand_nonzero()",
+              "Returns uniform float in (0.0, 1.0) (strictly non-zero)."
+            ],
+            [
+              "uniform",
+              "r.uniform(lo, hi)",
+              "Returns uniform float in range [lo, hi)."
+            ],
+            [
+              "randint",
+              "r.randint(lo, hi)",
+              "Returns random integer in range [lo, hi] inclusive."
+            ],
+            [
+              "randlist",
+              "r.randlist(n, lo, hi)",
+              "Generates a list of n random integers in [lo, hi]."
+            ],
+            [
+              "rand_floats",
+              "r.rand_floats(n)",
+              "Generates a list of n random floats in [0.0, 1.0)."
+            ],
+            [
+              "coin_flip",
+              "r.coin_flip()",
+              "Simulates fair 50/50 coin flip, returning 0 or 1."
+            ],
+            [
+              "pick",
+              "r.pick(lst)",
+              "Selects a random element from a list."
+            ],
+            [
+              "picks",
+              "r.picks(lst, k)",
+              "Picks k random elements WITH replacement."
+            ],
+            [
+              "draw",
+              "r.draw(lst, k)",
+              "Draws k random elements WITHOUT replacement."
+            ],
+            [
+              "shuffle",
+              "r.shuffle(lst)",
+              "Returns a new shuffled copy of the list (Fisher-Yates)."
+            ],
+            [
+              "weighted_pick",
+              "r.weighted_pick(items, weights)",
+              "Picks element according to relative weight probabilities."
+            ],
+            [
+              "roll_dice",
+              "r.roll_dice(sides)",
+              "Simulates rolling an n-sided die (e.g. d6, d20)."
+            ],
+            [
+              "roll_dice_n",
+              "r.roll_dice_n(sides, n)",
+              "Rolls n dice of given sides and returns list."
+            ],
+            [
+              "bernoulli",
+              "r.bernoulli(p)",
+              "Returns 1 with probability p, else 0."
+            ],
+            [
+              "geometric",
+              "r.geometric(p)",
+              "Returns sample from geometric distribution with success probability p."
+            ],
+            [
+              "reseed",
+              "r.reseed(new_seed)",
+              "Resets internal generator state to a new seed."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "PRNG Simulations & Sampling",
+          "filename": "random_rng_demo.sad",
+          "code": "summon random\n\n# 1. Instantiate RNG with seed\nr = random.rng(123456789)\n\nshow(\"--- Numbers & Ranges ---\")\nshow(\"rand() float:\", r.rand() < 1.0 and r.rand() >= 0.0)\nshow(\"uniform(10, 20):\", r.uniform(10, 20) >= 10.0)\nshow(\"randint(1, 100):\", r.randint(1, 100) >= 1)\nshow(\"coin_flip():\", r.coin_flip() == 0 or r.coin_flip() == 1)\n\nshow(\"--- Sampling & Shuffling ---\")\ncards = [\"Ace\", \"King\", \"Queen\", \"Jack\"]\nshow(\"pick card:\", cards.contains(r.pick(cards)))\nshow(\"picks (3 items with replacement):\", len(r.picks(cards, 3)))\nshow(\"draw (2 items without replacement):\", len(r.draw(cards, 2)))\nshow(\"shuffled cards:\", len(r.shuffle(cards)))\nshow(\"weighted_pick:\", r.weighted_pick([\"Common\", \"Rare\"], [95, 5]))\n\nshow(\"--- Dice & Distributions ---\")\nshow(\"roll 6-sided die:\", r.roll_dice(6) >= 1)\nshow(\"roll 3 dice:\", len(r.roll_dice_n(6, 3)))\nshow(\"bernoulli(0.8):\", r.bernoulli(0.8) == 0 or r.bernoulli(0.8) == 1)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Numbers & Ranges ---\nrand() float: True\nuniform(10, 20): True\nrandint(1, 100): True\ncoin_flip(): True\n--- Sampling & Shuffling ---\npick card: True\npicks (3 items with replacement): 3\ndraw (2 items without replacement): 2\nshuffled cards: 4\nweighted_pick: Common\n--- Dice & Distributions ---\nroll 6-sided die: True\nroll 3 dice: 3\nbernoulli(0.8): True"
+        }
+      ]
+    },
+    "stdlib-csv": {
+      "id": "stdlib-csv",
+      "title": "CSV Processing: `CSVReader` & `CSVWriter` (`csv.sad`)",
+      "badge": "File Formats",
+      "category": "stdlib",
+      "summary": "Streaming CSV file reader and writer models supporting row list parsing, automatic header extraction, and header-mapped dictionary rows.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Tabular File Processing",
+          "content": "The `csv.sad` library provides two object models for working with Comma-Separated Values:\n* `CSVReader(path)`: Streams lines from a file, automatically extracting column headers from line 1.\n* `CSVWriter(path, mode=\"w\")`: Formats and serializes records to a file stream."
+        },
+        {
+          "tag": "table",
+          "title": "CSV Models Reference",
+          "headers": [
+            "Model / Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "CSVReader(path)",
+              "csv.CSVReader(\"data.csv\")",
+              "Opens CSV file for reading and parses header line."
+            ],
+            [
+              "reader.headers",
+              "reader.headers",
+              "Attribute containing list of column header strings."
+            ],
+            [
+              "reader.read_row()",
+              "reader.read_row()",
+              "Reads next line as list of trimmed strings (Null at EOF)."
+            ],
+            [
+              "reader.read_dict_row()",
+              "reader.read_dict_row()",
+              "Reads next line as dictionary mapped to header columns."
+            ],
+            [
+              "reader.parse_row(line)",
+              "reader.parse_row(line)",
+              "Trims and splits comma-separated string into list."
+            ],
+            [
+              "reader.close()",
+              "reader.close()",
+              "Flushes and closes reader stream."
+            ],
+            [
+              "CSVWriter(path, mode)",
+              "csv.CSVWriter(\"out.csv\", \"w\")",
+              "Opens CSV file for writing (default mode 'w')."
+            ],
+            [
+              "writer.write_row(fields)",
+              "writer.write_row([a, b, c])",
+              "Serializes list of values as comma-separated line."
+            ],
+            [
+              "writer.close()",
+              "writer.close()",
+              "Flushes and closes writer stream."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "Writing and Reading CSV Data",
+          "filename": "csv_processing_demo.sad",
+          "code": "summon csv\n\n# 1. Write CSV file using CSVWriter\nwriter = csv.CSVWriter(\"employees.csv\")\nwriter.write_row([\"id\", \"name\", \"role\", \"salary\"])\nwriter.write_row([101, \"Souvik\", \"Engineer\", 95000])\nwriter.write_row([102, \"Diptoneel\", \"Architect\", 105000])\nwriter.write_row([103, \"Arkopravo\", \"Lead\", 110000])\nwriter.close()\nshow(\"Written employees.csv successfully!\")\n\n# 2. Read back using CSVReader\nreader = csv.CSVReader(\"employees.csv\")\nshow(\"Detected Headers:\", reader.headers)\n\n# Read row as list\nrow1 = reader.read_row()\nshow(\"Row 1 list:\", row1)\n\n# Read row mapped to headers as Dictionary\nrow2_dict = reader.read_dict_row()\nshow(\"Row 2 dict:\", row2_dict)\nshow(\"Row 2 name:\", row2_dict[\"name\"], \"| salary:\", row2_dict[\"salary\"])\n\nreader.close()"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Written employees.csv successfully!\nDetected Headers: ['id', 'name', 'role', 'salary']\nRow 1 list: ['101', 'Souvik', 'Engineer', '95000']\nRow 2 dict: {'id': '102', 'name': 'Diptoneel', 'role': 'Architect', 'salary': '105000'}\nRow 2 name: Diptoneel | salary: 105000"
+        }
+      ]
+    },
+    "builtin-io": {
+      "id": "builtin-io",
+      "title": "Console & File I/O (`show`, `listen`, `fopen`)",
+      "badge": "I/O System",
+      "category": "builtins",
+      "summary": "Core input and output primitives for writing to terminal, reading user input, and file stream handling.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Input & Output Functions",
+          "content": "* `show(*args, sep=\" \")`: Prints expressions to standard output separated by `sep` (default single space) and terminates with a newline.\n* `listen(prompt?)`: Prints optional prompt to stdout and reads a line from stdin.\n* `fopen(path, mode)`: Opens a file stream with mode `'r'` (read), `'w'` (write), or `'a'` (append). Returns a File object with `.read()`, `.lread()`, `.write()`, `.lwrite()`, and `.close()`."
+        },
+        {
+          "tag": "table",
+          "title": "File Stream Methods",
+          "headers": [
+            "Method",
+            "Signature",
+            "Description"
+          ],
+          "rows": [
+            [
+              "read",
+              "file.read()",
+              "Reads entire file contents into a single String."
+            ],
+            [
+              "lread",
+              "file.lread()",
+              "Reads all lines and returns a List of strings."
+            ],
+            [
+              "write",
+              "file.write(text)",
+              "Writes string into file stream."
+            ],
+            [
+              "lwrite",
+              "file.lwrite(lines)",
+              "Writes a List of strings as distinct lines."
+            ],
+            [
+              "close",
+              "file.close()",
+              "Flushes buffers and closes the open file stream."
+            ]
+          ]
+        },
+        {
+          "tag": "example",
+          "title": "I/O Formatting & File Streams",
+          "filename": "io_demo.sad",
+          "code": "# 1. Formatting with show()\nshow(\"Item A\", \"Item B\", \"Item C\")\nshow(\"Item A\", \"Item B\", \"Item C\", sep=\" | \")\n\n# 2. File Stream Operations\nf = fopen(\"output_sample.txt\", \"w\")\nf.write(\"Line 1: Hello from Sardine!\\n\")\nf.write(\"Line 2: Fast C++23 runtime engine.\\n\")\nf.close()\n\n# Read back\nf_in = fopen(\"output_sample.txt\", \"r\")\ncontent = f_in.read()\nf_in.close()\nshow(\"Read back from file:\")\nshow(content)"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "Item A Item B Item C\nItem A | Item B | Item C\nRead back from file:\nLine 1: Hello from Sardine!\nLine 2: Fast C++23 runtime engine."
+        }
+      ]
+    },
+    "builtin-utilities": {
+      "id": "builtin-utilities",
+      "title": "Core Utilities (`len`, `range`, `type`, `exit`)",
+      "badge": "Core Built-ins",
+      "category": "builtins",
+      "summary": "Essential global functions for sequence length, numeric range generation, type names, and exiting.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Global Helper Functions",
+          "content": "Sardine provides essential global functions available in all scopes without importing any modules:\n* `len(seq)`: Returns number of elements in a List, String, or Dictionary.\n* `range(end)` or `range(start, end, step?)`: Generates a List of numbers.\n* `type(val)`: Returns type name of any value.\n* `exit(code?)`: Terminates script execution."
+        },
+        {
+          "tag": "example",
+          "title": "Using Core Utilities",
+          "filename": "utilities_demo.sad",
+          "code": "# 1. len() across data structures\nshow(\"len of string:\", len(\"Sardine\"))\nshow(\"len of list:\", len([10, 20, 30, 40]))\nshow(\"len of dict:\", len({\"a\": 1, \"b\": 2, \"c\": 3}))\n\n# 2. range() generation\nshow(\"range(5):\", range(5))\nshow(\"range(2, 8):\", range(2, 8))\nshow(\"range(0, 10, 2):\", range(0, 10, 2))\n\n# 3. type() queries\nshow(\"type of 99:\", type(99))\nshow(\"type of [1]:\", type([1]))\nshow(\"type of show:\", type(show))"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "len of string: 7\nlen of list: 4\nlen of dict: 3\nrange(5): [0, 1, 2, 3, 4]\nrange(2, 8): [2, 3, 4, 5, 6, 7]\nrange(0, 10, 2): [0, 2, 4, 6, 8]\ntype of 99: Integer\ntype of [1]: List\ntype of show: BuiltInFunction"
+        }
+      ]
+    },
+    "sandboxing": {
+      "id": "sandboxing",
+      "title": "Runtime Safeguards & Sandboxing",
+      "badge": "Engine Internals",
+      "category": "sandbox",
+      "summary": "Protective resource thresholds, stack depth limits, AST limits, and runtime performance optimizations.",
+      "sections": [
+        {
+          "tag": "explanation",
+          "title": "Execution Safeguards",
+          "content": "To prevent browser freezing, memory leaks, and runaway recursive loops, Sardine incorporates hard thresholds enforced at runtime."
+        },
+        {
+          "tag": "table",
+          "title": "Sandbox Boundaries",
+          "headers": [
+            "Boundary",
+            "Default Threshold",
+            "Purpose"
+          ],
+          "rows": [
+            [
+              "Iteration Ceiling",
+              "100,000 iterations",
+              "Limits cycles, while conditions, and comprehensions from freezing."
+            ],
+            [
+              "Call Stack Depth",
+              "100 active frames",
+              "Prevents recursive stack overflows from exhausting thread memory."
+            ],
+            [
+              "AST Tree Depth",
+              "60 levels",
+              "Halts deeply recursive syntactic nesting during Pratt parsing."
+            ],
+            [
+              "List / String Max Size",
+              "1,000,000 elements/chars",
+              "Prevents heap exhaustion through runaway sequence allocation."
+            ],
+            [
+              "Dictionary Max Size",
+              "100,000 key-value pairs",
+              "Caps hash map bucket consumption."
+            ],
+            [
+              "File Read Ceiling",
+              "10 MB",
+              "Restricts file stream memory consumption in local mode."
+            ]
+          ]
+        },
+        {
+          "tag": "explanation",
+          "title": "C++23 Optimization Pillars",
+          "content": "Sardine achieves native-grade execution speeds while retaining dynamic scripting flexibility through key design decisions in the engine:\n\n* **Copy-on-Write (COW) Containers**: Lists and Dictionaries defer deep copying until write operations occur.\n* **Static AST Dispatch (RTTI Elimination)**: The recursive evaluator evaluates nodes using static numeric enums rather than expensive C++ `dynamic_cast` lookups.\n* **Thread-Local Object Pool**: Numbers are allocated from a dedicated thread-local memory pool, bypassing standard heap fragmentation.\n* **Pointer-Keyed String Interning**: Interns variable identifiers and dictionary keys for O(1) pointer-equality comparisons.\n* **Resolved Member Caching**: Caches constructor entry points and polymorphic method offsets inside models for constant-time dispatch."
+        },
+        {
+          "tag": "syntax",
+          "title": "Overriding Limits",
+          "content": "# Deactivate all safety limits for unbounded workloads in CLI\n./build/sardine production_script.sad --unbounded"
+        },
+        {
+          "tag": "example",
+          "title": "Sandboxed Recursion & Stack Protection",
+          "filename": "sandbox_demo.sad",
+          "code": "# Recursive method demonstrating call stack boundary enforcement\nmethod recursive_call(depth) {\n    when depth > 0 {\n        yield recursive_call(depth - 1)\n    }\n    yield \"Base reached\"\n}\n\nshow(\"--- Safe In-Bounds Recursion ---\")\nres = recursive_call(10)\nshow(\"Recursion result:\", res)\n\n# Attempting recursion beyond the 100-frame limit inside a risk block\nrisk {\n    show(\"Attempting 150 recursive frames...\")\n    recursive_call(150)\n} trap RunTimeError err {\n    show(\"Sandbox caught depth exceeded:\")\n    show(\"  Message:\", err.message)\n}"
+        },
+        {
+          "tag": "output",
+          "title": "Terminal Output",
+          "content": "--- Safe In-Bounds Recursion ---\nRecursion result: Base reached\nAttempting 150 recursive frames...\nSandbox caught depth exceeded:\n  Message: Maximum recursion depth exceeded (100)"
+        },
+        {
+          "tag": "tip",
+          "title": "Telemetry & Profiling",
+          "content": "You can capture performance metrics by passing `--timeprofile` (measures milliseconds per compiler phase) or `--memoryprofile` (measures net heap delta per phase) on the CLI."
+        }
+      ]
+    }
+  }
+}

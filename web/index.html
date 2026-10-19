@@ -121,12 +121,114 @@
         </div>
 
         <!-- DOCUMENTATION VIEW -->
-        <div id="view-docs" class="view-pane hidden absolute inset-0 flex items-center justify-center p-6">
-            <div class="text-center text-slate-400">
-                <i data-lucide="book-open" class="h-12 w-12 mx-auto text-indigo-500 mb-3 animate-pulse"></i>
-                <h2 class="text-xl font-bold text-white mb-1">Documentation</h2>
-                <p class="text-sm">User Guide & Reference under construction...</p>
-            </div>
+        <div id="view-docs" class="view-pane hidden absolute inset-0 flex overflow-hidden bg-slate-950">
+            <!-- Documentation Left Sidebar -->
+            <aside id="docs-sidebar"
+                class="w-80 border-r border-slate-800/80 bg-slate-950/80 backdrop-blur-md flex flex-col shrink-0 transition-all duration-300 z-20">
+                <!-- Sidebar Search & Controls Header -->
+                <div class="p-4 border-b border-slate-800/60 bg-slate-950/60 shrink-0 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="book-open" class="h-5 w-5 text-indigo-400"></i>
+                            <span class="text-sm font-bold text-slate-200 tracking-wide uppercase">Documentation</span>
+                        </div>
+                        <span id="docs-topics-count"
+                            class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">50 Topics</span>
+                    </div>
+
+                    <!-- Search Input Box -->
+                    <div class="relative">
+                        <i data-lucide="search"
+                            class="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                        <input id="docs-search-input" type="text" placeholder="Search documentation..."
+                            class="w-full bg-slate-900/90 border border-slate-800 hover:border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl pl-9 pr-8 py-2 text-xs text-slate-200 placeholder-slate-500 transition-all font-sans focus:outline-none">
+                        <button id="docs-search-clear" onclick="clearDocsSearch()"
+                            class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 p-0.5 rounded-md hover:bg-slate-800 transition-colors">
+                            <i data-lucide="x" class="h-3.5 w-3.5"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center justify-between text-[11px] text-slate-400 pt-0.5">
+                        <span id="docs-search-status" class="truncate font-sans">Browse language guide</span>
+                        <button onclick="toggleAllDocCategories()" id="btn-toggle-all-cats"
+                            class="hover:text-indigo-400 text-slate-400 transition-colors shrink-0 font-medium cursor-pointer">
+                            Collapse All
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Accordion Navigation Categories -->
+                <nav id="docs-accordion-container"
+                    class="flex-1 overflow-y-auto p-3 space-y-1.5 font-sans select-none">
+                    <!-- Populated dynamically by docs.js parsing JSON -->
+                </nav>
+            </aside>
+
+            <!-- Main Documentation Content View -->
+            <main id="docs-content-container"
+                class="flex-1 flex flex-col min-w-0 bg-slate-950/40 overflow-y-auto relative">
+                <!-- Top Breadcrumb & Toolbar -->
+                <div
+                    class="sticky top-0 z-10 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-6 sm:px-10 py-3.5 flex items-center justify-between shrink-0 shadow-sm">
+                    <div class="flex items-center space-x-3 text-xs text-slate-400 min-w-0">
+                        <button onclick="toggleDocsSidebar()"
+                            class="lg:hidden p-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:text-white transition-colors"
+                            title="Toggle Sidebar">
+                            <i data-lucide="menu" class="h-4 w-4"></i>
+                        </button>
+                        <a href="#/docs" class="hover:text-indigo-400 transition-colors flex items-center space-x-1 shrink-0">
+                            <i data-lucide="book-open" class="h-3.5 w-3.5 text-indigo-400"></i>
+                            <span>Docs</span>
+                        </a>
+                        <span class="text-slate-600">/</span>
+                        <span id="docs-breadcrumb-cat" class="truncate font-medium text-slate-400">Category</span>
+                        <span class="text-slate-600">/</span>
+                        <span id="docs-breadcrumb-title" class="truncate font-bold text-slate-200">Topic</span>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="copyCurrentDocLink()"
+                            class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white transition-all flex items-center space-x-1.5 shadow-sm active:scale-95 cursor-pointer"
+                            title="Copy Direct URL">
+                            <i data-lucide="link" class="h-3.5 w-3.5 text-indigo-400"></i>
+                            <span id="btn-copy-link-text">Share</span>
+                        </button>
+                        <button onclick="openCurrentTopicInEditor()"
+                            class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 text-xs font-bold text-white transition-all flex items-center space-x-1.5 shadow-[0_0_12px_rgba(99,102,241,0.25)] hover:scale-[1.02] active:scale-95 cursor-pointer"
+                            title="Try sample code in playground editor">
+                            <i data-lucide="play" class="h-3.5 w-3.5 fill-current"></i>
+                            <span>Try in Editor</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Article Container -->
+                <article id="docs-article" class="max-w-4xl mx-auto w-full px-6 sm:px-10 py-8 space-y-8 font-sans">
+                    <!-- Populated dynamically according to design templates -->
+                </article>
+
+                <!-- Footer Pagination Navigation -->
+                <div class="max-w-4xl mx-auto w-full px-6 sm:px-10 pb-12 pt-4">
+                    <div class="border-t border-slate-800/80 pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button id="docs-nav-prev" onclick="navigateDocTopic(-1)"
+                            class="group p-4 rounded-2xl border border-slate-800/80 bg-slate-900/40 hover:bg-slate-900 hover:border-slate-700 transition-all text-left flex flex-col space-y-1 cursor-pointer">
+                            <span class="text-[11px] font-bold text-slate-500 group-hover:text-indigo-400 flex items-center space-x-1 uppercase tracking-wider">
+                                <i data-lucide="arrow-left" class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1"></i>
+                                <span>Previous</span>
+                            </span>
+                            <span id="docs-prev-title" class="text-sm font-bold text-slate-200 group-hover:text-white truncate">Topic Title</span>
+                        </button>
+                        <button id="docs-nav-next" onclick="navigateDocTopic(1)"
+                            class="group p-4 rounded-2xl border border-slate-800/80 bg-slate-900/40 hover:bg-slate-900 hover:border-slate-700 transition-all text-right flex flex-col space-y-1 items-end cursor-pointer">
+                            <span class="text-[11px] font-bold text-slate-500 group-hover:text-indigo-400 flex items-center space-x-1 uppercase tracking-wider">
+                                <span>Next</span>
+                                <i data-lucide="arrow-right" class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1"></i>
+                            </span>
+                            <span id="docs-next-title" class="text-sm font-bold text-slate-200 group-hover:text-white truncate">Topic Title</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
         </div>
 
         <!-- REGULAR PLAYGROUND EDITOR VIEW -->
@@ -684,6 +786,8 @@
     <script src="js/editor.js"></script>
     <script src="js/d3-ast.js"></script>
     <script src="js/stepper.js"></script>
+    <script src="js/docs-data.js"></script>
+    <script src="js/docs.js"></script>
 </body>
 
 </html>

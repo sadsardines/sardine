@@ -157,6 +157,9 @@ function handleRoute() {
     if (matchedRoute === '#/educational' && eduEditorInstance) {
         setTimeout(() => eduEditorInstance.layout(), 50);
     }
+    if (matchedRoute === '#/docs' && typeof window.onDocsRouteActive === 'function') {
+        window.onDocsRouteActive(rawHash);
+    }
 }
 
 window.addEventListener('hashchange', handleRoute);

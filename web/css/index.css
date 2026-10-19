@@ -189,3 +189,33 @@ body {
     transform: scale(0.95) !important;
 }
 
+/* Documentation Styling */
+#docs-content-container {
+    scroll-behavior: smooth;
+}
+
+#docs-accordion-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+#docs-accordion-container::-webkit-scrollbar-thumb {
+    background: rgba(99, 102, 241, 0.25);
+    border-radius: 2px;
+}
+
+#docs-accordion-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(99, 102, 241, 0.5);
+}
+
+/* Sardine Documentation Syntax Highlighting Theme (Catppuccin Mocha) */
+.token-comment { color: #6c7086 !important; font-style: italic; }
+.token-string { color: #a6e3a1 !important; }
+.token-number { color: #fab387 !important; }
+.token-keyword { color: #cba6f7 !important; font-weight: 600; }
+.token-type { color: #f9e2af !important; font-style: italic; }
+.token-builtin { color: #89b4fa !important; font-weight: 500; }
+.token-operator { color: #89dceb !important; font-weight: 500; }
+.token-ident { color: #cdd6f4 !important; }
+.token-punct { color: #94e2d5 !important; }
+
+
